@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - feature
 name: release-please
 jobs:
   release-please:
