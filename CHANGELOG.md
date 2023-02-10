@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.1](https://github.com/jearle10/cscart-rs/compare/v1.2.0...v0.0.1) (2023-02-10)
+
+
+### Continuous Integration
+
+* updates ([94c2f19](https://github.com/jearle10/cscart-rs/commit/94c2f19c3ffe751225b8b5be4ddddabdcee8f4f2))
+
 ## [1.2.0](https://github.com/jearle10/cscart-rs/compare/v1.1.0...v1.2.0) (2023-02-10)
 
 
