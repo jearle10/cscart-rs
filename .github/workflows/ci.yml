@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: echo $CS_CART_API_KEY
+      - run: echo $CSCART_API_KEY
 
   release:
     runs-on: ubuntu-latest
