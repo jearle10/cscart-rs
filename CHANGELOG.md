@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.2.0](https://github.com/jearle10/cscart-rs/compare/v0.1.0...v0.2.0) (2023-02-11)
+
+
+### Features
+
+* testing ([31ceffb](https://github.com/jearle10/cscart-rs/commit/31ceffb52748a157c4dead28b22a1ac94b85282c))
+* testing release ([af4401c](https://github.com/jearle10/cscart-rs/commit/af4401ca521cfafac5f3284f0f3d8dd31df0830a))
+
+
+### Bug Fixes
+
+* testing release ([040a57f](https://github.com/jearle10/cscart-rs/commit/040a57f9b2bfd0e9ecc05f318d9505c36fa5fc57))
+
 ## [0.1.0](https://github.com/jearle10/cscart-rs/compare/v0.0.1...v0.1.0) (2023-02-11)
 
 
