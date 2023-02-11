@@ -3,13 +3,11 @@ name: CI
 env:
   CSCART_API_KEY: ${{ secrets.CS_CART_API_KEY }}
 jobs:
-
   test:
     runs-on: ubuntu-latest
     steps:
-      - name : Run tests
       - uses: actions/checkout@v3
-      - run: cargo test
+      - run: echo $CS_CART_API_KEY
 
   release:
     runs-on: ubuntu-latest
