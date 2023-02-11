@@ -1,0 +1,10 @@
+[package]
+name = "cscart-rs"
+description = "An sdk for the cs-cart e-commerce platform"
+license = "MIT"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
