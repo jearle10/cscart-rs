@@ -2,7 +2,7 @@ on: [ push ]
 name: CI
 
 env:
-  CSCART_API_KEY: ${{ secrets.CS_CART_API_KEY }}
+  CSCART_API_KEY: ${{ secrets.CSCART_API_KEY }}
 
 jobs:
   test:
