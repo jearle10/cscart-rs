@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 .idea
+=======
+/target
+/Cargo.lock
+>>>>>>> 6e044f6 (Initial commit)
