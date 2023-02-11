@@ -1,7 +1,9 @@
 on: [ push ]
 name: CI
+
 env:
   CSCART_API_KEY: ${{ secrets.CS_CART_API_KEY }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
