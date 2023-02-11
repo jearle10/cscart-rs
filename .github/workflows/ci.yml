@@ -1,13 +1,13 @@
 on: [ push ]
 name: CI
+env:
+  CSCART_API_KEY: ${{ secrets.CS_CART_API_KEY }}
 jobs:
 
   test:
     runs-on: ubuntu-latest
     steps:
       - name : Run tests
-      env:
-        CSCART_API_KEY: ${{ secrets.CS_CART_API_KEY }}
       - uses: actions/checkout@v3
       - run: cargo test
 
