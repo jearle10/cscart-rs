@@ -1,6 +1,7 @@
 on: [ push ]
 name: CI
 
+
 env:
   CSCART_API_KEY: ${{ secrets.CSCART_API_KEY }}
 
