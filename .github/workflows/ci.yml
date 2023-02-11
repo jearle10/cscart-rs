@@ -1,0 +1,17 @@
+on: [ push ]
+name: CI
+jobs:
+
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#      - run: ls
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: rust
+          package-name: release-please-action
