@@ -74,7 +74,7 @@ impl Request {
     }
 
 
-    async fn get(&self) -> Result<String , Box<dyn Error>> {
+    pub async fn get(&self) -> Result<String , Box<dyn Error>> {
 
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
@@ -98,7 +98,7 @@ impl Request {
         }
     }
 
-    async fn put(&self, body : Value) -> Result<String , Box<dyn Error>> {
+    pub async fn put(&self, body : Value) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -110,6 +110,7 @@ impl Request {
                 Some(self.api_key.as_str())
             )
             .query(&self.query_params)
+            .json(&body)
             .send()
             .await?
             .text()
@@ -121,7 +122,7 @@ impl Request {
         }
     }
 
-    async fn post(&self, body : Value) -> Result<String , Box<dyn Error>> {
+    pub async fn post(&self, body : Value) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -133,6 +134,7 @@ impl Request {
                 Some(self.api_key.as_str())
             )
             .query(&self.query_params)
+            .json(&body)
             .send()
             .await?
             .text()
@@ -144,7 +146,7 @@ impl Request {
         }
     }
 
-    async fn delete(&self) -> Result<String , Box<dyn Error>> {
+    pub async fn delete(&self) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
