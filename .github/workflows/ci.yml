@@ -10,13 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Check cargo toolchain
+      - name: Run tests
         run: |
-          echo $CSCART_API_KEY
           cargo --version
           cargo test
-          if [ $? -eq 0 ]; then
-            echo "Tests were successfull"
+          if [ $? -ne 0 ]; then
+            exit 1
           fi
 
   release:
