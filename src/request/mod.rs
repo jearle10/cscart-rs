@@ -1,3 +1,4 @@
+use std::error::Error;
 use dotenv::dotenv;
 use reqwest;
 use serde_json::Value;
@@ -73,7 +74,7 @@ impl Request {
     }
 
 
-    pub async fn get(&self) -> Result<String , reqwest::Error> {
+    async fn get(&self) -> Result<String , Box<dyn Error>> {
 
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
@@ -91,10 +92,13 @@ impl Request {
             .text()
             .await;
 
-        data
+        match data {
+            Ok(data) => Ok(data),
+            Err(e) => Err(Box::new(e))
+        }
     }
 
-    pub async fn put(&self, body : Value) -> Result<String , reqwest::Error> {
+    async fn put(&self, body : Value) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -111,10 +115,13 @@ impl Request {
             .text()
             .await;
 
-        data
+        match data {
+            Ok(data) => Ok(data),
+            Err(e) => Err(Box::new(e))
+        }
     }
 
-    pub async fn post(&self, body : Value) -> Result<String , reqwest::Error> {
+    async fn post(&self, body : Value) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -131,10 +138,13 @@ impl Request {
             .text()
             .await;
 
-        data
+        match data {
+            Ok(data) => Ok(data),
+            Err(e) => Err(Box::new(e))
+        }
     }
 
-    pub async fn delete(&self) -> Result<String , reqwest::Error> {
+    async fn delete(&self) -> Result<String , Box<dyn Error>> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -150,7 +160,10 @@ impl Request {
             .await?
             .text()
             .await;
-        data
+        match data {
+            Ok(data) => Ok(data),
+            Err(e) => Err(Box::new(e))
+        }
     }
 }
 
