@@ -1,12 +1,21 @@
 on: [ push ]
 name: CI
-jobs:
 
-#  test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - run: ls
+env:
+  CSCART_API_KEY: ${{ secrets.CSCART_API_KEY }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: |
+          cargo --version
+          cargo test
+          if [ $? -ne 0 ]; then
+            exit 1
+          fi
 
   release:
     runs-on: ubuntu-latest
