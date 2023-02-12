@@ -95,15 +95,62 @@ impl Request {
     }
 
     pub async fn put(&self, body : Value) -> Result<String , reqwest::Error> {
-        todo!()
+        let client = reqwest::Client::new();
+        let mut endpoint : String = String::from(&self.host);
+
+        endpoint.push_str(&self.path);
+
+        let data = client.put(endpoint)
+            .basic_auth(
+                self.username.as_str(),
+                Some(self.api_key.as_str())
+            )
+            .query(&self.query_params)
+            .send()
+            .await?
+            .text()
+            .await;
+
+        data
     }
 
     pub async fn post(&self, body : Value) -> Result<String , reqwest::Error> {
-        todo!()
+        let client = reqwest::Client::new();
+        let mut endpoint : String = String::from(&self.host);
+
+        endpoint.push_str(&self.path);
+
+        let data = client.post(endpoint)
+            .basic_auth(
+                self.username.as_str(),
+                Some(self.api_key.as_str())
+            )
+            .query(&self.query_params)
+            .send()
+            .await?
+            .text()
+            .await;
+
+        data
     }
 
     pub async fn delete(&self) -> Result<String , reqwest::Error> {
-        todo!()
+        let client = reqwest::Client::new();
+        let mut endpoint : String = String::from(&self.host);
+
+        endpoint.push_str(&self.path);
+
+        let data = client.delete(endpoint)
+            .basic_auth(
+                self.username.as_str(),
+                Some(self.api_key.as_str())
+            )
+            .query(&self.query_params)
+            .send()
+            .await?
+            .text()
+            .await;
+        data
     }
 }
 
