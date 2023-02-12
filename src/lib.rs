@@ -1,3 +1,4 @@
+mod request;
 use dotenv::dotenv;
 
 // Public Api
