@@ -1,4 +1,5 @@
 mod request;
+mod crud;
 use dotenv::dotenv;
 
 // Public Api
