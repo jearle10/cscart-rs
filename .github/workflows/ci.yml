@@ -3,6 +3,8 @@ name: CI
 
 env:
   CSCART_API_KEY: ${{ secrets.CSCART_API_KEY }}
+  CSCART_USERNAME: ${{ secrets.CSCART_USERNAME }}
+  CSCART_HOST: ${{ secrets.CSCART_HOST }}
 
 jobs:
   test:
