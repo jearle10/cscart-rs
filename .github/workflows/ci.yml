@@ -10,9 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
-        echo $CSCART_API_KEY
-        cargo --version
+      - name: Check cargo toolchain
+        run: |
+          echo $CSCART_API_KEY
+          cargo --version
 
   release:
     runs-on: ubuntu-latest
