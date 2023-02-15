@@ -1,6 +1,9 @@
 mod request;
 mod crud;
+mod service;
+
 use dotenv::dotenv;
+use crate::service::category;
 
 // Public Api
 pub struct Client {
@@ -31,6 +34,15 @@ impl Client {
     pub fn host(mut self, host: &str) -> Self {
         self.host = host.to_string();
         self
+    }
+
+    pub fn category (&self) -> category::Service {
+        category::Service {
+            host : self.host.to_string(),
+            username: self.username.to_string(),
+            api_key: self.api_key.to_string(),
+            path : "/api/2.0/categories".to_string()
+        }
     }
 
     fn get_username(&self) -> &str {

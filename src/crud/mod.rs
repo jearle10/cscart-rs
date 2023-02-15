@@ -21,27 +21,27 @@ pub struct HandlerBuilder {
 }
 
 impl HandlerBuilder {
-    fn username (mut self, username : &str) -> Self {
+    pub (crate) fn username (mut self, username : &str) -> Self {
         self.username = username.to_string();
         self
     }
 
-    fn api_key (mut self, api_key : &str) -> Self {
+    pub (crate) fn api_key (mut self, api_key : &str) -> Self {
         self.api_key = api_key.to_string();
         self
     }
 
-    fn host (mut self, host : &str) -> Self {
+    pub (crate) fn host (mut self, host : &str) -> Self {
         self.host = host.to_string();
         self
     }
 
-    fn path (mut self, path : &str) -> Self {
+    pub (crate) fn path (mut self, path : &str) -> Self {
         self.path = path.to_string();
         self
     }
 
-    fn build(self) -> Handler {
+    pub (crate) fn build(self) -> Handler {
         Handler {
             username: self.username,
             api_key: self.api_key,
@@ -53,7 +53,7 @@ impl HandlerBuilder {
 
 impl Handler {
 
-    fn new () -> HandlerBuilder {
+    pub fn new () -> HandlerBuilder {
         HandlerBuilder {
             username: "".to_string(),
             api_key: "".to_string(),
@@ -63,7 +63,7 @@ impl Handler {
     }
 
 
-    async fn create(&self, body : Value) -> Result<Value>{
+    pub(crate) async fn create(&self, body : Value) -> Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -79,7 +79,7 @@ impl Handler {
         }
     }
 
-    async fn read(&self) -> Result<Value>{
+    pub(crate) async fn read(&self) -> Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -95,7 +95,7 @@ impl Handler {
         }
     }
 
-    async fn update(&self, body: Value) -> Result<Value>{
+    pub(crate) async fn update(&self, body: Value) -> Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -111,7 +111,7 @@ impl Handler {
         }
     }
 
-    async fn delete(&self) -> Result<Value>{
+    pub(crate) async fn delete(&self) -> Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
