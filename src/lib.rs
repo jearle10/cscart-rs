@@ -1,3 +1,30 @@
+//! # About
+//!
+//! Cscart-rs is an sdk for making api request using the cscart rest api
+//!
+//! This library is a work in process and so not all entities are supported for the v1
+//! release
+//!
+//!  # Example
+//! ```
+//! use cscart_rs::Client;
+//! use serde_json::Value;
+//! use std::error::Error;
+//!
+//! async fn get_categories() -> Result<Value , Box<dyn Error>> {
+//!     let client = Client::new()
+//!         .host("http://my-ecommerce-site.com")
+//!         .username("my-user-email@email.com")
+//!         .api_key("user-api-key");
+//!
+//!     let categories = client
+//!         .category()
+//!         .get_all().await;
+//!
+//!     categories
+//! }
+//! ```
+
 mod request;
 mod crud;
 mod service;
@@ -5,7 +32,7 @@ mod service;
 use dotenv::dotenv;
 use crate::service::category;
 
-// Public Api
+/// Configure an api client to perform requests
 pub struct Client {
     username : String,
     api_key : String,
@@ -21,6 +48,7 @@ impl Client {
         }
     }
 
+    /// The cscart api user's email address
     pub fn username(mut self, username: &str) -> Self {
         self.username = username.to_string();
         self
