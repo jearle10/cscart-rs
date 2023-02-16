@@ -65,12 +65,12 @@ impl Client {
     }
 
     pub fn category (&self) -> category::Service {
-        category::Service {
-            host : self.host.to_string(),
-            username: self.username.to_string(),
-            api_key: self.api_key.to_string(),
-            path : "/api/2.0/categories".to_string()
-        }
+        category::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/categories")
+            .build()
     }
 
     fn get_username(&self) -> &str {
