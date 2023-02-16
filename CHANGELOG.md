@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.2.0](https://github.com/jearle10/cscart-rs/compare/v0.1.0...v0.2.0) (2023-02-16)
+
+
+### Features
+
+* Added category method ([26b143a](https://github.com/jearle10/cscart-rs/commit/26b143ac28bea96d4aecb7d7ca235db34e471264))
+* Handler struct and HandlerBuilder for abstracting CRUD api calls ([5e5bfba](https://github.com/jearle10/cscart-rs/commit/5e5bfba5c8e9c159c1ea50a50823bafedfb4ac01))
+* Implementations for put, post , delete added ([57c42e3](https://github.com/jearle10/cscart-rs/commit/57c42e370f799bb0ac375d4c5100a4210d558fc3))
+* Request builder for making http requests using basic auth ([109d722](https://github.com/jearle10/cscart-rs/commit/109d722a0c45e87e5d43470c7b6070802535013f))
+
+
+### Bug Fixes
+
+* Added missing json payload for put and post reqwest methods ([bc2399f](https://github.com/jearle10/cscart-rs/commit/bc2399f25590b7e42840917a0539f0cc70c9945b))
+* **docs:** Added top level crate documentation to lib.rs ([8af9d8a](https://github.com/jearle10/cscart-rs/commit/8af9d8a4512c752a323d59159de13a4ba9a21634))
+* Return Error trait object from all request client methods ([67758c3](https://github.com/jearle10/cscart-rs/commit/67758c38ec9351e42dce34dc32aeebb2cdfe2275))
+* Update readme with how to create api client ([bd6c5a6](https://github.com/jearle10/cscart-rs/commit/bd6c5a630d0fe53012c9832a7856802c867221d2))
+
 ## 0.1.0 (2023-02-12)
 
 
