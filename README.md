@@ -23,3 +23,14 @@ async fn get_categories() -> Result<Value , Box<dyn Error>> {
     categories
 }
 ```
+
+### Features
+
+| Entity          | Support |
+| --------------- | ------- |
+| cart            |  [x]    |
+| categories      |  [x]    |
+| payment methods |  [x]    |
+| products        |  [x]    |
+| users           |  [x]    |
+| vendors         |  [x]    |
