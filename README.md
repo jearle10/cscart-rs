@@ -29,7 +29,7 @@ async fn get_categories() -> Result<Value , Box<dyn Error>> {
 | Entity                     |        Support       | 
 | :---:                      |         :-----:      |   
 | cart                       |   :white_check_mark: |      
-| call requests              |   :clock:            |            
+| call requests              |   :clock9:           |            
 | categories                 |   :white_check_mark: |              
 | discussions                |         :x:          |                    
 | languages                  |         :x:          |                    
