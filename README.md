@@ -1,3 +1,7 @@
+![Crates.io](https://img.shields.io/crates/l/cscart_rs/0.1.0)
+![Crates.io](https://img.shields.io/crates/v/cscart_rs)
+![Crates.io](https://img.shields.io/crates/d/cscart_rs)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/jearle10/cscart-rs/ci.yml)
 ### About
 A rust based sdk for e-commerce platform CS cart
 
