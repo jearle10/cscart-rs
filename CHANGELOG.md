@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/jearle10/cscart-rs/compare/v0.4.0...v0.4.1) (2023-02-17)
+
+
+### Bug Fixes
+
+* Update readme ([5637b8a](https://github.com/jearle10/cscart-rs/commit/5637b8a93bbad09626f97d75ec176e4f4a916e8e))
+
 ## [0.4.0](https://github.com/jearle10/cscart-rs/compare/v0.3.0...v0.4.0) (2023-02-17)
 
 
