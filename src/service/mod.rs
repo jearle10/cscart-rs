@@ -71,6 +71,13 @@ impl Service {
             .api_key(self.api_key.as_str())
     }
 
+    pub async fn create(&self, data : Value) -> Result<Value, Box<dyn Error>> {
+        let handler = self.handler_credentials()
+            .path(&format!("{}", &self.path))
+            .build();
+        handler.create(data).await
+    }
+
     pub async fn get_all(&self) -> Result<Value, Box<dyn Error>> {
         let handler = self.handler_credentials()
             .path(&format!("{}", &self.path))
@@ -79,33 +86,33 @@ impl Service {
         handler.read().await
     }
 
-    pub async fn get_by_id(&mut self , category_id : &str) -> Result<Value , Box<dyn Error>>{
+    pub async fn get_by_id(&mut self , id : &str) -> Result<Value , Box<dyn Error>>{
         let handler = self.handler_credentials()
-            .path(&format!("{}/{}", &self.path, category_id))
+            .path(&format!("{}/{}", &self.path, id))
             .build();
 
         handler.read().await
     }
 
-    pub async fn update_by_id(&self , category_id : &str, category : Value) -> Result<Value , Box<dyn Error>> {
+    pub async fn update_by_id(&self , id : &str, data : Value) -> Result<Value , Box<dyn Error>> {
         let handler = self.handler_credentials()
-            .path(&format!("{}/{}", &self.path, category_id))
+            .path(&format!("{}/{}", &self.path, id))
             .build();
 
-        handler.update(category).await
+        handler.update(data).await
     }
 
-    pub async fn delete_by_id(&self, category_id : &str) -> Result<Value , Box<dyn Error>> {
+    pub async fn delete_by_id(&self, id : &str) -> Result<Value , Box<dyn Error>> {
         let handler = self.handler_credentials()
-            .path(&format!("{}/{}", &self.path, category_id))
+            .path(&format!("{}/{}", &self.path, id))
             .build();
 
         handler.delete().await
     }
 
-    pub async fn get_all_entity(&mut self, category_id : &str, entity : &str) -> Result<Value, Box<dyn Error>> {
+    pub async fn get_all_entity(&mut self, id : &str, entity : &str) -> Result<Value, Box<dyn Error>> {
         let handler = self.handler_credentials()
-            .path(&format!("{}/{}/{}", &self.path, category_id , entity))
+            .path(&format!("{}/{}/{}", &self.path, id , entity))
             .build();
 
         handler.read().await
