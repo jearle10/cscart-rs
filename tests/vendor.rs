@@ -20,16 +20,16 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
-async fn it_creates_a_product( ){
+async fn it_creates_a_vendor( ){
 }
 
 #[tokio::test]
-async fn it_gets_product_by_id(){
+async fn it_gets_vendor_by_id(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .vendor()
         .get_by_id("210").await;
 
     match response {
@@ -41,17 +41,17 @@ async fn it_gets_product_by_id(){
 }
 
 #[tokio::test]
-async fn it_updates_product_by_id(){
+async fn it_updates_vendor_by_id(){
 
     let api = setup();
 
-    let product = json!({
+    let vendor = json!({
         "name" : "Comfort & Cruisers"
     });
 
     let response = api
-        .product()
-        .update_by_id("210", product).await;
+        .vendor()
+        .update_by_id("210", vendor).await;
 
     match response {
         Ok(_) => assert!(true),
@@ -62,13 +62,15 @@ async fn it_updates_product_by_id(){
 }
 
 #[tokio::test]
-async fn it_gets_all_products(){
+async fn it_gets_all_vendors(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .vendor()
         .get_all().await;
+
+    println!("{:?}", response);
 
     match response {
         Ok(_) => assert!(true),
