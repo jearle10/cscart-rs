@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.3.0](https://github.com/jearle10/cscart-rs/compare/v0.2.0...v0.3.0) (2023-02-17)
+
+
+### Features
+
+* Add create method to service and refactor ([12ac5ac](https://github.com/jearle10/cscart-rs/commit/12ac5ac4bac324d1f9a5ae0d9e1caf3ae8551133))
+* Added 'create' to all supported entities and added user entitiy to api client ([a7302db](https://github.com/jearle10/cscart-rs/commit/a7302db52fbb340f62cc49a0db5fa4eb6ced1d69))
+* Added cart entity ([86cfa8a](https://github.com/jearle10/cscart-rs/commit/86cfa8a28b965a4c1aeb4fa8c2f5a61b08fc8087))
+* Added product entity to client ([f25876a](https://github.com/jearle10/cscart-rs/commit/f25876a9e4712312f0f84ce7c269aca679e893a6))
+* Added vendor entity to client ([e38ce11](https://github.com/jearle10/cscart-rs/commit/e38ce1192a17df45059939e1f00bede8169817c8))
+
 ## [0.2.0](https://github.com/jearle10/cscart-rs/compare/v0.1.0...v0.2.0) (2023-02-16)
 
 
