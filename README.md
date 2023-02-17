@@ -26,11 +26,13 @@ async fn get_categories() -> Result<Value , Box<dyn Error>> {
 
 ### Features
 
-| Entity          | Support              |
-| --------------- | -------              |
+| Entity          |        Support       |
+| :---:           |        :---:         |
 | cart            |  :white_check_mark:  |
 | categories      |  :white_check_mark:  |
 | payment methods |  :white_check_mark:  |
 | products        |  :white_check_mark:  |
 | users           |  :white_check_mark:  |
 | vendors         |  :white_check_mark:  |
+
+#### More functionality coming soon :clock9:
