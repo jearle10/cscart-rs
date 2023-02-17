@@ -22,6 +22,23 @@ fn setup() -> Client {
 
 #[tokio::test]
 async fn it_creates_a_category( ){
+    let api = setup();
+
+    let test_data = json!({
+        "category" : "e2e testing",
+        "company_id" : 1
+    });
+
+    let categories = api
+        .category()
+        .create(test_data).await;
+
+    match categories {
+        Ok(_) => assert!(true),
+        Err(e) => {
+            println!("{}", e);
+            assert!(false)}
+    }
 }
 
 #[tokio::test]

@@ -81,6 +81,15 @@ impl Client {
             .build()
     }
 
+    pub fn user (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/users")
+            .build()
+    }
+
     pub fn cart (&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())

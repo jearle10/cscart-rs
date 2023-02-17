@@ -21,6 +21,31 @@ fn setup() -> Client {
 
 #[tokio::test]
 async fn it_creates_a_vendor( ){
+    let api = setup();
+
+    let test_vendor = json!({
+        "company" : "e2e testing",
+        "storefront" : "api",
+        "email" : "e2etest@gmail.com",
+        "phone" : "12345678",
+        "address" : "The Land of Oz",
+        "city" : "London",
+        "country" :"GB",
+        "state" : "CO",
+
+    });
+
+    let response = api
+        .vendor()
+        .create(test_vendor).await;
+
+
+    match response {
+        Ok(_) => assert!(true),
+        Err(e) => {
+            println!("{}", e);
+            assert!(false)}
+    }
 }
 
 #[tokio::test]

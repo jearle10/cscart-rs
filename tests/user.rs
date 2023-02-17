@@ -20,23 +20,19 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
-async fn it_creates_a_product( ){
+async fn it_creates_a_user( ){
     let api = setup();
 
-    let test_data = json!({
-        "product" : "e2e testing",
-        "category_ids" : [1 ,2],
-        "main_category" : 210,
-        "price" : 0,
+    let test_user = json!({
+        "email" : "e2etest@gmail.com",
+        "user_type" : "C",
         "company_id" : 1,
         "status" : "A"
     });
 
     let response = api
-        .product()
-        .create(test_data).await;
-
-    println!("{:?}" , response);
+        .user()
+        .create(test_user).await;
 
     match response {
         Ok(_) => assert!(true),
@@ -47,12 +43,12 @@ async fn it_creates_a_product( ){
 }
 
 #[tokio::test]
-async fn it_gets_product_by_id(){
+async fn it_gets_user_by_id(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .user()
         .get_by_id("210").await;
 
     match response {
@@ -64,17 +60,17 @@ async fn it_gets_product_by_id(){
 }
 
 #[tokio::test]
-async fn it_updates_product_by_id(){
+async fn it_updates_user_by_id(){
 
     let api = setup();
 
-    let product = json!({
-        "name" : "e2e testing"
+    let user = json!({
+        "email" : "Comfort & Cruisers"
     });
 
     let response = api
-        .product()
-        .update_by_id("210", product).await;
+        .user()
+        .update_by_id("210", user).await;
 
     match response {
         Ok(_) => assert!(true),
@@ -85,13 +81,15 @@ async fn it_updates_product_by_id(){
 }
 
 #[tokio::test]
-async fn it_gets_all_products(){
+async fn it_gets_all_users(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .user()
         .get_all().await;
+
+    println!("{:?}", response);
 
     match response {
         Ok(_) => assert!(true),
