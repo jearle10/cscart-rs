@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/jearle10/cscart-rs/compare/v0.3.0...v0.4.0) (2023-02-17)
+
+
+### Features
+
+* Added payment method entity to client ([1e8ea14](https://github.com/jearle10/cscart-rs/commit/1e8ea14c0efa7439f83e453844733eddc2de544a))
+
 ## [0.3.0](https://github.com/jearle10/cscart-rs/compare/v0.2.0...v0.3.0) (2023-02-17)
 
 
