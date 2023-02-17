@@ -54,7 +54,4 @@ async fn get_categories() -> Result<Value , Box<dyn Error>> {
 | taxes                      |       :clock9:       |                    
 | users                      |   :white_check_mark: |                    
 | user groups                |        :clock9:      |                    
-| vendors                    |   :white_check_mark: |                    
-
-
-#### More functionality coming soon :clock9:
+| vendors                    |   :white_check_mark: |
