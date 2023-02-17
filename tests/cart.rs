@@ -19,17 +19,14 @@ fn setup() -> Client {
         .api_key(&api_key)
 }
 
-#[tokio::test]
-async fn it_creates_a_product( ){
-}
 
 #[tokio::test]
-async fn it_gets_product_by_id(){
+async fn it_gets_cart_by_id(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .cart()
         .get_by_id("210").await;
 
     match response {
@@ -40,36 +37,16 @@ async fn it_gets_product_by_id(){
     }
 }
 
-
 #[tokio::test]
-async fn it_updates_product_by_id(){
-
-    let api = setup();
-
-    let product = json!({
-        "name" : "Comfort & Cruisers"
-    });
-
-    let response = api
-        .product()
-        .update_by_id("210", product).await;
-
-    match response {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)}
-    }
-}
-
-#[tokio::test]
-async fn it_gets_all_products(){
+async fn it_gets_all_carts(){
 
     let api = setup();
 
     let response = api
-        .product()
+        .cart()
         .get_all().await;
+
+    println!("{:?}" , response);
 
     match response {
         Ok(_) => assert!(true),

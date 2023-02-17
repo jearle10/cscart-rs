@@ -30,8 +30,6 @@ mod crud;
 mod service;
 
 use dotenv::dotenv;
-use crate::service::category;
-use crate::service::product;
 
 /// Configure an api client to perform requests
 pub struct Client {
@@ -65,8 +63,8 @@ impl Client {
         self
     }
 
-    pub fn category (&self) -> category::Service {
-        category::Service::new()
+    pub fn category (&self) -> service::Service {
+        service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -74,12 +72,21 @@ impl Client {
             .build()
     }
 
-    pub fn product (&self) -> product::Service {
-        product::Service::new()
+    pub fn product (&self) -> service::Service {
+        service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
             .path("/api/2.0/products")
+            .build()
+    }
+
+    pub fn cart (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/carts")
             .build()
     }
 

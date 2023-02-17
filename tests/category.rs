@@ -89,7 +89,10 @@ async fn it_gets_products_in_category(){
 
     let categories = api
         .category()
-        .get_all_products("210").await;
+        .get_all_entity("210" , "products").await;
+
+
+    println!("{:#?}" , categories);
 
     match categories {
         Ok(_) => assert!(true),
