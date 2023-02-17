@@ -108,6 +108,15 @@ impl Client {
             .build()
     }
 
+    pub fn payment_method (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/payments")
+            .build()
+    }
+
     fn get_username(&self) -> &str {
         &self.username
     }
