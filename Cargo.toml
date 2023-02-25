@@ -2,7 +2,7 @@
 name = "cscart-rs"
 description = "An sdk for the cs-cart e-commerce platform"
 license = "MIT OR Apache-2.0"
-version = "0.4.0"
+version = "0.4.1"
 authors =  ["Jian Earle"]
 edition = "2021"
 keywords = ["sdk" , "ecommerce" , "cscart"]
