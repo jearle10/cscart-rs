@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/jearle10/cscart-rs/compare/v0.4.0...v0.4.1) (2023-02-25)
+
+
+### Bug Fixes
+
+* Readme emojis removed - crates.io didnt render correctly ([5adc495](https://github.com/jearle10/cscart-rs/commit/5adc4959b2030e36e889112a148b65434a2f84c3))
+
 ## [0.4.0](https://github.com/jearle10/cscart-rs/compare/v0.3.0...v0.4.0) (2023-02-17)
 
 
