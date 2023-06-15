@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/jearle10/cscart-rs/compare/v0.4.1...v0.4.2) (2023-06-15)
+
+
+### Bug Fixes
+
+* Refactor create method to use anyhow ([7ff5bbb](https://github.com/jearle10/cscart-rs/commit/7ff5bbbfce6eb3210d5791fe0a4dfa8cf1192dbf))
+
 ## [0.4.1](https://github.com/jearle10/cscart-rs/compare/v0.4.0...v0.4.1) (2023-02-25)
 
 
