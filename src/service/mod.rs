@@ -5,6 +5,7 @@ use std::error::Error;
 use std::ffi::OsStr;
 use serde_json::Value;
 use crate::crud::{Handler, HandlerBuilder};
+use anyhow;
 
 // Business logic
 pub struct Service {
@@ -71,11 +72,12 @@ impl Service {
             .api_key(self.api_key.as_str())
     }
 
-    pub async fn create(&self, data : Value) -> Result<Value, Box<dyn Error>> {
+    pub async fn create(&self, data : Value) -> anyhow::Result<Value, anyhow::Error> {
         let handler = self.handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
-        handler.create(data).await
+        let rsp = handler.create(data).await?;
+        Ok(rsp)
     }
 
     pub async fn get_all(&self) -> Result<Value, Box<dyn Error>> {

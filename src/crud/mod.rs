@@ -1,6 +1,7 @@
 use std::error::Error;
 use crate::request;
 use serde_json::Value;
+use anyhow;
 
 
 type Result<T> = std::result::Result<T, Box<dyn Error>>;
@@ -63,7 +64,7 @@ impl Handler {
     }
 
 
-    pub(crate) async fn create(&self, body : Value) -> Result<Value>{
+    pub(crate) async fn create(&self, body : Value) -> anyhow::Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -71,12 +72,10 @@ impl Handler {
             .api_key(&self.api_key)
             .build();
 
-        let response = request.post(body).await?;
+        let response: String = request.post(body).await?;
 
-        match serde_json::from_str(&response) {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        let rsp = serde_json::from_str(&response)?;
+        Ok(rsp)
     }
 
     pub(crate) async fn read(&self) -> Result<Value>{
