@@ -133,9 +133,10 @@ impl Client {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     #[test]
     fn it_creates_api_client() {
-        use super::*;
+
         dotenv().ok();
 
         let api_key = std::env::var("CSCART_API_KEY")
@@ -155,5 +156,29 @@ mod tests {
         assert_eq!(client.get_username(), username);
         assert_eq!(client.get_api_key(), api_key);
         assert_eq!(client.get_host(), host);
+    }
+
+
+
+    #[test]
+    fn resource_enum() {
+         enum Resource {
+             PRODUCT,
+             CART
+         }
+
+        impl Resource {
+
+            fn to_string(&self ) -> String {
+                match self {
+                    Self::PRODUCT =>  String::from("products"),
+                    Self::CART => String::from("carts")
+                }
+            }
+        }
+
+        let resource = Resource::PRODUCT.to_string();
+
+        println!("{}" , resource)
     }
 }

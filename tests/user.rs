@@ -1,6 +1,9 @@
+use std::error::Error;
 use dotenv::dotenv;
-use serde_json::json;
+use serde_json::{json, Value};
 use cscart_rs::Client;
+use uuid::Uuid;
+
 
 fn setup() -> Client {
     dotenv().ok(); // For local testing
@@ -20,26 +23,28 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
-async fn it_creates_a_user( ){
+async fn it_creates_and_deletes_a_user( ){
     let api = setup();
 
+    let guuid = Uuid::new_v4();
+
     let test_user = json!({
-        "email" : "e2etest@gmail.com",
+        "email" : format!("{}@test.com" , guuid),
         "user_type" : "C",
-        "company_id" : 1,
+        "company_id" : "1",
         "status" : "A"
     });
 
-    let response = api
+    let create_response = api
         .user()
         .create(test_user).await;
 
-    match response {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)}
-    }
+    let data = create_response.unwrap();
+    let id  = data["user_id"].as_i64().unwrap();
+
+    // let delete_response = api.user()
+    //     .delete_by_id(id.to_string().as_str())
+    //     .await;
 }
 
 #[tokio::test]
@@ -49,13 +54,11 @@ async fn it_gets_user_by_id(){
 
     let response = api
         .user()
-        .get_by_id("210").await;
+        .get_by_id("1").await;
 
     match response {
         Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)}
+        Err(e) => assert!(false)
     }
 }
 
@@ -65,12 +68,16 @@ async fn it_updates_user_by_id(){
     let api = setup();
 
     let user = json!({
-        "email" : "Comfort & Cruisers"
+        "email" : "jianearle93@googlemail.com",
+        "user_type" : "A",
+        "company_id" : 1,
+        "status" :  "A",
+        "password" : "Musashi1009!"
     });
 
     let response = api
         .user()
-        .update_by_id("210", user).await;
+        .update_by_id("1", user).await;
 
     match response {
         Ok(_) => assert!(true),
@@ -88,8 +95,6 @@ async fn it_gets_all_users(){
     let response = api
         .user()
         .get_all().await;
-
-    println!("{:?}", response);
 
     match response {
         Ok(_) => assert!(true),

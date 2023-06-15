@@ -24,7 +24,7 @@ async fn it_creates_a_vendor( ){
     let api = setup();
 
     let test_vendor = json!({
-        "company" : "e2e testing",
+        "company" : "e2e testin",
         "storefront" : "api",
         "email" : "e2etest@gmail.com",
         "phone" : "12345678",
@@ -55,7 +55,7 @@ async fn it_gets_vendor_by_id(){
 
     let response = api
         .vendor()
-        .get_by_id("210").await;
+        .get_by_id("2").await;
 
     match response {
         Ok(_) => assert!(true),
@@ -71,12 +71,12 @@ async fn it_updates_vendor_by_id(){
     let api = setup();
 
     let vendor = json!({
-        "name" : "Comfort & Cruisers"
+        "name" : "Testing Testing 123"
     });
 
     let response = api
         .vendor()
-        .update_by_id("210", vendor).await;
+        .update_by_id("6", vendor).await;
 
     match response {
         Ok(_) => assert!(true),
