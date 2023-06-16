@@ -10,8 +10,9 @@
 //! use cscart_rs::Client;
 //! use serde_json::Value;
 //! use std::error::Error;
+//! use anyhow;
 //!
-//! async fn get_categories() -> Result<Value , Box<dyn Error>> {
+//! async fn get_categories() -> anyhow::Result<Value> {
 //!     let client = Client::new()
 //!         .host("http://my-ecommerce-site.com")
 //!         .username("my-user-email@email.com")

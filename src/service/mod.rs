@@ -72,7 +72,7 @@ impl Service {
             .api_key(self.api_key.as_str())
     }
 
-    pub async fn create(&self, data : Value) -> anyhow::Result<Value, anyhow::Error> {
+    pub async fn create(&self, data : Value) -> anyhow::Result<Value> {
         let handler = self.handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
@@ -80,43 +80,48 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn get_all(&self) -> Result<Value, Box<dyn Error>> {
+    pub async fn get_all(&self) -> anyhow::Result<Value> {
         let handler = self.handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
 
-        handler.read().await
+        let rsp = handler.read().await?;
+        Ok(rsp)
     }
 
-    pub async fn get_by_id(&mut self , id : &str) -> Result<Value , Box<dyn Error>>{
+    pub async fn get_by_id(&mut self , id : &str) -> anyhow::Result<Value>{
         let handler = self.handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
-        handler.read().await
+        let rsp = handler.read().await?;
+        Ok(rsp)
     }
 
-    pub async fn update_by_id(&self , id : &str, data : Value) -> Result<Value , Box<dyn Error>> {
+    pub async fn update_by_id(&self , id : &str, data : Value) -> anyhow::Result<Value> {
         let handler = self.handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
-        handler.update(data).await
+        let rsp = handler.update(data).await?;
+        Ok(rsp)
     }
 
-    pub async fn delete_by_id(&self, id : &str) -> Result<Value , Box<dyn Error>> {
+    pub async fn delete_by_id(&self, id : &str) -> anyhow::Result<Value> {
         let handler = self.handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
-        handler.delete().await
+        let rsp = handler.delete().await?;
+        Ok(rsp)
     }
 
-    pub async fn get_all_entity(&mut self, id : &str, entity : &str) -> Result<Value, Box<dyn Error>> {
+    pub async fn get_all_entity(&mut self, id : &str, entity : &str) -> anyhow::Result<Value> {
         let handler = self.handler_credentials()
             .path(&format!("{}/{}/{}", &self.path, id , entity))
             .build();
 
-        handler.read().await
+        let rsp = handler.read().await?;
+        Ok(rsp)
     }
 }

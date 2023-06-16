@@ -78,7 +78,7 @@ impl Handler {
         Ok(rsp)
     }
 
-    pub(crate) async fn read(&self) -> Result<Value>{
+    pub(crate) async fn read(&self) -> anyhow::Result<Value> {
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -88,13 +88,11 @@ impl Handler {
 
         let response = request.get().await?;
 
-        match serde_json::from_str(&response) {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        let rsp =  serde_json::from_str(&response)?;
+        Ok(rsp)
     }
 
-    pub(crate) async fn update(&self, body: Value) -> Result<Value>{
+    pub(crate) async fn update(&self, body: Value) -> anyhow::Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -104,13 +102,11 @@ impl Handler {
 
         let response = request.put(body).await?;
 
-        match serde_json::from_str(&response) {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        let rsp =  serde_json::from_str(&response)?;
+        Ok(rsp)
     }
 
-    pub(crate) async fn delete(&self) -> Result<Value>{
+    pub(crate) async fn delete(&self) -> anyhow::Result<Value>{
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
@@ -120,10 +116,8 @@ impl Handler {
 
         let response = request.delete().await?;
 
-        match serde_json::from_str(&response) {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        let rsp =  serde_json::from_str(&response)?;
+        Ok(rsp)
     }
 }
 
