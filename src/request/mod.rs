@@ -75,7 +75,7 @@ impl Request {
     }
 
 
-    pub async fn get(&self) -> Result<String , Box<dyn Error>> {
+    pub async fn get(&self) -> anyhow::Result<String> {
 
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
@@ -91,15 +91,12 @@ impl Request {
             .send()
             .await?
             .text()
-            .await;
+            .await?;
 
-        match data {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        Ok(data)
     }
 
-    pub async fn put(&self, body : Value) -> Result<String , Box<dyn Error>> {
+    pub async fn put(&self, body : Value) -> anyhow::Result<String> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -115,12 +112,9 @@ impl Request {
             .send()
             .await?
             .text()
-            .await;
+            .await?;
 
-        match data {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+        Ok(data)
     }
 
     pub async fn post(&self, body : Value) -> anyhow::Result<String> {
@@ -143,7 +137,7 @@ impl Request {
         Ok(data)
     }
 
-    pub async fn delete(&self) -> Result<String , Box<dyn Error>> {
+    pub async fn delete(&self) -> anyhow::Result<String> {
         let client = reqwest::Client::new();
         let mut endpoint : String = String::from(&self.host);
 
@@ -158,11 +152,9 @@ impl Request {
             .send()
             .await?
             .text()
-            .await;
-        match data {
-            Ok(data) => Ok(data),
-            Err(e) => Err(Box::new(e))
-        }
+            .await?;
+
+        Ok(data)
     }
 }
 
