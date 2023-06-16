@@ -9,6 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish to crates.io
-        run: |
-          cargo login CRATES_IO_API_TOKEN
-          cargo publish
+        run: cargo publish --token ${CRATES_IO_API_TOKEN}
