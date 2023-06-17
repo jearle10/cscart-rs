@@ -12,8 +12,9 @@ pub struct Service {
     pub(crate) host : String,
     pub(crate) api_key : String,
     pub(crate) username : String,
-    pub(crate) path : String, // /api.php?_d= for v1 or /api/2.0
-    pub (crate) entity: String // last part of path
+    pub(crate) path : String, // /api.php?_d=products for v1 or /api/2.0/products
+    pub (crate) entity: String // sub-entity e.g /api/2.0/categories/<id>/products
+    //  Break the path into path , entity and sub_entity methods
 }
 
 pub struct ServiceBuilder {
@@ -65,7 +66,7 @@ impl Service {
         }
     }
 
-    fn handler_credentials(&self) -> HandlerBuilder {
+    fn set_handler_credentials(&self) -> HandlerBuilder {
         crud::Handler::new()
             .host(self.host.as_str())
             .username(self.username.as_str())
@@ -73,7 +74,7 @@ impl Service {
     }
 
     pub async fn create(&self, data : Value) -> anyhow::Result<Value> {
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
         let rsp = handler.create(data).await?;
@@ -81,7 +82,7 @@ impl Service {
     }
 
     pub async fn get_all(&self) -> anyhow::Result<Value> {
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
 
@@ -90,7 +91,7 @@ impl Service {
     }
 
     pub async fn get_by_id(&mut self , id : &str) -> anyhow::Result<Value>{
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -99,7 +100,7 @@ impl Service {
     }
 
     pub async fn update_by_id(&self , id : &str, data : Value) -> anyhow::Result<Value> {
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -108,7 +109,7 @@ impl Service {
     }
 
     pub async fn delete_by_id(&self, id : &str) -> anyhow::Result<Value> {
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -117,7 +118,7 @@ impl Service {
     }
 
     pub async fn get_all_entity(&mut self, id : &str, entity : &str) -> anyhow::Result<Value> {
-        let handler = self.handler_credentials()
+        let handler = self.set_handler_credentials()
             .path(&format!("{}/{}/{}", &self.path, id , entity))
             .build();
 
