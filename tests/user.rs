@@ -1,20 +1,16 @@
-use std::error::Error;
+use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::{json, Value};
-use cscart_rs::Client;
+use std::error::Error;
 use uuid::Uuid;
-
 
 fn setup() -> Client {
     dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY")
-        .expect("No api key found");
+    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
 
-    let username = std::env::var("CSCART_USERNAME")
-        .expect("No username found");
+    let username = std::env::var("CSCART_USERNAME").expect("No username found");
 
-    let host = std::env::var("CSCART_HOST")
-        .expect("No host found");
+    let host = std::env::var("CSCART_HOST").expect("No host found");
 
     Client::new()
         .host(&host)
@@ -23,7 +19,7 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
-async fn it_creates_and_deletes_a_user( ){
+async fn it_creates_and_deletes_a_user() {
     let api = setup();
 
     let guuid = Uuid::new_v4();
@@ -35,12 +31,10 @@ async fn it_creates_and_deletes_a_user( ){
         "status" : "A"
     });
 
-    let create_response = api
-        .user()
-        .create(test_user).await;
+    let create_response = api.user().create(test_user).await;
 
     let data = create_response.unwrap();
-    let id  = data["user_id"].as_i64().unwrap();
+    let id = data["user_id"].as_i64().unwrap();
 
     // let delete_response = api.user()
     //     .delete_by_id(id.to_string().as_str())
@@ -48,23 +42,19 @@ async fn it_creates_and_deletes_a_user( ){
 }
 
 #[tokio::test]
-async fn it_gets_user_by_id(){
-
+async fn it_gets_user_by_id() {
     let api = setup();
 
-    let response = api
-        .user()
-        .get_by_id("1").await;
+    let response = api.user().get_by_id("1").await;
 
     match response {
         Ok(_) => assert!(true),
-        Err(e) => assert!(false)
+        Err(e) => assert!(false),
     }
 }
 
 #[tokio::test]
-async fn it_updates_user_by_id(){
-
+async fn it_updates_user_by_id() {
     let api = setup();
 
     let user = json!({
@@ -75,29 +65,25 @@ async fn it_updates_user_by_id(){
         "password" : "Musashi1009!"
     });
 
-    let response = api
-        .user()
-        .update_by_id("1", user).await;
+    let response = api.user().update_by_id("1", user).await;
 
     match response {
         Ok(_) => assert!(true),
         Err(e) => {
             println!("{}", e);
-            assert!(false)}
+            assert!(false)
+        }
     }
 }
 
 #[tokio::test]
-async fn it_gets_all_users(){
-
+async fn it_gets_all_users() {
     let api = setup();
 
-    let response = api
-        .user()
-        .get_all().await;
+    let response = api.user().get_all().await;
 
     match response {
         Ok(_) => assert!(true),
-        Err(_) => assert!(false)
+        Err(_) => assert!(false),
     }
 }

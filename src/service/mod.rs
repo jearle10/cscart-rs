@@ -1,44 +1,44 @@
-use crate::request;
 use crate::crud;
+use crate::request;
 
-use std::error::Error;
-use std::ffi::OsStr;
-use serde_json::Value;
 use crate::crud::{Handler, HandlerBuilder};
 use anyhow;
+use serde_json::Value;
+use std::error::Error;
+use std::ffi::OsStr;
 
 // Business logic
 pub struct Service {
-    pub(crate) host : String,
-    pub(crate) api_key : String,
-    pub(crate) username : String,
-    pub(crate) path : String, // /api.php?_d=products for v1 or /api/2.0/products
-    pub (crate) entity: String // sub-entity e.g /api/2.0/categories/<id>/products
-    //  Break the path into path , entity and sub_entity methods
+    pub(crate) host: String,
+    pub(crate) api_key: String,
+    pub(crate) username: String,
+    pub(crate) path: String, // /api.php?_d=products for v1 or /api/2.0/products
+    pub(crate) entity: String, // sub-entity e.g /api/2.0/categories/<id>/products
+                             //  Break the path into path , entity and sub_entity methods
 }
 
 pub struct ServiceBuilder {
-    pub(crate) host : String,
-    pub(crate) api_key : String,
-    pub(crate) username : String,
-    pub(crate) path : String, // /api.php?_d= for v1 or /api/2.0,
-    pub (crate) entity: String // last part of path
+    pub(crate) host: String,
+    pub(crate) api_key: String,
+    pub(crate) username: String,
+    pub(crate) path: String,   // /api.php?_d= for v1 or /api/2.0,
+    pub(crate) entity: String, // last part of path
 }
 
 impl ServiceBuilder {
-    pub fn host (mut self, host : &str) -> Self {
+    pub fn host(mut self, host: &str) -> Self {
         self.host = host.to_string();
         self
     }
-    pub fn api_key (mut self, api_key : &str ) -> Self {
+    pub fn api_key(mut self, api_key: &str) -> Self {
         self.api_key = api_key.to_string();
         self
     }
-    pub fn username (mut self , username : &str ) -> Self {
+    pub fn username(mut self, username: &str) -> Self {
         self.username = username.to_string();
         self
     }
-    pub fn path (mut self, path : &str ) -> Self {
+    pub fn path(mut self, path: &str) -> Self {
         self.path = path.to_string();
         self
     }
@@ -49,20 +49,19 @@ impl ServiceBuilder {
             api_key: self.api_key,
             username: self.username,
             path: self.path,
-            entity: "".to_string()
+            entity: "".to_string(),
         }
     }
 }
 
 impl Service {
-
     pub fn new() -> ServiceBuilder {
         ServiceBuilder {
             host: "".to_string(),
             api_key: "".to_string(),
             username: "".to_string(),
             path: "".to_string(),
-            entity: "".to_string()
+            entity: "".to_string(),
         }
     }
 
@@ -73,8 +72,9 @@ impl Service {
             .api_key(self.api_key.as_str())
     }
 
-    pub async fn create(&self, data : Value) -> anyhow::Result<Value> {
-        let handler = self.set_handler_credentials()
+    pub async fn create(&self, data: Value) -> anyhow::Result<Value> {
+        let handler = self
+            .set_handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
         let rsp = handler.create(data).await?;
@@ -82,7 +82,8 @@ impl Service {
     }
 
     pub async fn get_all(&self) -> anyhow::Result<Value> {
-        let handler = self.set_handler_credentials()
+        let handler = self
+            .set_handler_credentials()
             .path(&format!("{}", &self.path))
             .build();
 
@@ -90,8 +91,9 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn get_by_id(&mut self , id : &str) -> anyhow::Result<Value>{
-        let handler = self.set_handler_credentials()
+    pub async fn get_by_id(&mut self, id: &str) -> anyhow::Result<Value> {
+        let handler = self
+            .set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -99,8 +101,9 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn update_by_id(&self , id : &str, data : Value) -> anyhow::Result<Value> {
-        let handler = self.set_handler_credentials()
+    pub async fn update_by_id(&self, id: &str, data: Value) -> anyhow::Result<Value> {
+        let handler = self
+            .set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -108,8 +111,9 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn delete_by_id(&self, id : &str) -> anyhow::Result<Value> {
-        let handler = self.set_handler_credentials()
+    pub async fn delete_by_id(&self, id: &str) -> anyhow::Result<Value> {
+        let handler = self
+            .set_handler_credentials()
             .path(&format!("{}/{}", &self.path, id))
             .build();
 
@@ -117,9 +121,10 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn get_all_entity(&mut self, id : &str, entity : &str) -> anyhow::Result<Value> {
-        let handler = self.set_handler_credentials()
-            .path(&format!("{}/{}/{}", &self.path, id , entity))
+    pub async fn get_all_entity(&mut self, id: &str, entity: &str) -> anyhow::Result<Value> {
+        let handler = self
+            .set_handler_credentials()
+            .path(&format!("{}/{}/{}", &self.path, id, entity))
             .build();
 
         let rsp = handler.read().await?;

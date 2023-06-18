@@ -26,17 +26,17 @@
 //! }
 //! ```
 
-mod request;
 mod crud;
+mod request;
 mod service;
 
 use dotenv::dotenv;
 
 /// Configure an api client to perform requests
 pub struct Client {
-    username : String,
-    api_key : String,
-    host : String
+    username: String,
+    api_key: String,
+    host: String,
 }
 
 impl Client {
@@ -44,7 +44,7 @@ impl Client {
         Client {
             username: "".to_string(),
             api_key: "".to_string(),
-            host: "".to_string()
+            host: "".to_string(),
         }
     }
 
@@ -91,7 +91,7 @@ impl Client {
             .build()
     }
 
-    pub fn category (&self) -> service::Service {
+    pub fn category(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -100,8 +100,7 @@ impl Client {
             .build()
     }
 
-
-    pub fn discussion (&self) -> service::Service {
+    pub fn discussion(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -110,7 +109,7 @@ impl Client {
             .build()
     }
 
-    pub fn language (&self) -> service::Service {
+    pub fn language(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -119,7 +118,7 @@ impl Client {
             .build()
     }
 
-    pub fn langvars (&self) -> service::Service {
+    pub fn langvars(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -128,7 +127,7 @@ impl Client {
             .build()
     }
 
-    pub fn order (&self) -> service::Service {
+    pub fn order(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -263,8 +262,7 @@ impl Client {
             .build()
     }
 
-
-    pub fn user (&self) -> service::Service {
+    pub fn user(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -282,7 +280,7 @@ impl Client {
             .build()
     }
 
-    pub fn vendor (&self) -> service::Service {
+    pub fn vendor(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -302,7 +300,6 @@ impl Client {
     fn get_host(&self) -> &str {
         &self.host
     }
-
 }
 
 #[cfg(test)]
@@ -310,17 +307,13 @@ mod tests {
     use super::*;
     #[test]
     fn it_creates_api_client() {
-
         dotenv().ok();
 
-        let api_key = std::env::var("CSCART_API_KEY")
-            .expect("No api key found");
+        let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
 
-        let username = std::env::var("CSCART_USERNAME")
-            .expect("No username found");
+        let username = std::env::var("CSCART_USERNAME").expect("No username found");
 
-        let host = std::env::var("CSCART_HOST")
-            .expect("No host found");
+        let host = std::env::var("CSCART_HOST").expect("No host found");
 
         let client = Client::new()
             .host(host.as_str())
@@ -332,27 +325,24 @@ mod tests {
         assert_eq!(client.get_host(), host);
     }
 
-
-
     #[test]
     fn resource_enum() {
-         enum Resource {
-             PRODUCT,
-             CART
-         }
+        enum Resource {
+            PRODUCT,
+            CART,
+        }
 
         impl Resource {
-
-            fn to_string(&self ) -> String {
+            fn to_string(&self) -> String {
                 match self {
-                    Self::PRODUCT =>  String::from("products"),
-                    Self::CART => String::from("carts")
+                    Self::PRODUCT => String::from("products"),
+                    Self::CART => String::from("carts"),
                 }
             }
         }
 
         let resource = Resource::PRODUCT.to_string();
 
-        println!("{}" , resource)
+        println!("{}", resource)
     }
 }

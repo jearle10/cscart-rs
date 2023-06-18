@@ -1,17 +1,14 @@
+use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
-use cscart_rs::Client;
 
 fn setup() -> Client {
     dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY")
-        .expect("No api key found");
+    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
 
-    let username = std::env::var("CSCART_USERNAME")
-        .expect("No username found");
+    let username = std::env::var("CSCART_USERNAME").expect("No username found");
 
-    let host = std::env::var("CSCART_HOST")
-        .expect("No host found");
+    let host = std::env::var("CSCART_HOST").expect("No host found");
 
     Client::new()
         .host(&host)
@@ -20,7 +17,7 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
-async fn it_creates_a_vendor( ){
+async fn it_creates_a_vendor() {
     let api = setup();
 
     let test_vendor = json!({
@@ -35,70 +32,61 @@ async fn it_creates_a_vendor( ){
 
     });
 
-    let response = api
-        .vendor()
-        .create(test_vendor).await;
-
+    let response = api.vendor().create(test_vendor).await;
 
     match response {
         Ok(_) => assert!(true),
         Err(e) => {
             println!("{}", e);
-            assert!(false)}
+            assert!(false)
+        }
     }
 }
 
 #[tokio::test]
-async fn it_gets_vendor_by_id(){
-
+async fn it_gets_vendor_by_id() {
     let api = setup();
 
-    let response = api
-        .vendor()
-        .get_by_id("2").await;
+    let response = api.vendor().get_by_id("2").await;
 
     match response {
         Ok(_) => assert!(true),
         Err(e) => {
             println!("{}", e);
-            assert!(false)}
+            assert!(false)
+        }
     }
 }
 
 #[tokio::test]
-async fn it_updates_vendor_by_id(){
-
+async fn it_updates_vendor_by_id() {
     let api = setup();
 
     let vendor = json!({
         "name" : "Testing Testing 123"
     });
 
-    let response = api
-        .vendor()
-        .update_by_id("6", vendor).await;
+    let response = api.vendor().update_by_id("6", vendor).await;
 
     match response {
         Ok(_) => assert!(true),
         Err(e) => {
             println!("{}", e);
-            assert!(false)}
+            assert!(false)
+        }
     }
 }
 
 #[tokio::test]
-async fn it_gets_all_vendors(){
-
+async fn it_gets_all_vendors() {
     let api = setup();
 
-    let response = api
-        .vendor()
-        .get_all().await;
+    let response = api.vendor().get_all().await;
 
     println!("{:?}", response);
 
     match response {
         Ok(_) => assert!(true),
-        Err(_) => assert!(false)
+        Err(_) => assert!(false),
     }
 }
