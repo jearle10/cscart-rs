@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/jearle10/cscart-rs/compare/v0.4.2...v0.5.0) (2023-06-18)
+
+
+### Features
+
+* All entities added - some still untested ([6e03a06](https://github.com/jearle10/cscart-rs/commit/6e03a064e6547bce4c09288ecf1a415fe885ee67))
+* Order service added ([4a080d6](https://github.com/jearle10/cscart-rs/commit/4a080d6c67f297fa76cf0cab19e5dcd21e8fae6c))
+
 ## [0.4.2](https://github.com/jearle10/cscart-rs/compare/v0.4.1...v0.4.2) (2023-06-15)
 
 
