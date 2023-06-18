@@ -1,7 +1,8 @@
 use std::error::Error;
 use crate::request;
-use serde_json::Value;
+use serde_json::{Value , json};
 use anyhow;
+use anyhow::Context;
 
 
 type Result<T> = std::result::Result<T, Box<dyn Error>>;
@@ -116,7 +117,7 @@ impl Handler {
 
         let response = request.delete().await?;
 
-        let rsp =  serde_json::from_str(&response)?;
+        let rsp =  serde_json::from_str(&response).unwrap_or(json!(null));
         Ok(rsp)
     }
 }

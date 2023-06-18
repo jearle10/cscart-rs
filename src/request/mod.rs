@@ -3,6 +3,7 @@ use dotenv::dotenv;
 use reqwest;
 use serde_json::Value;
 use anyhow;
+use anyhow::{Context};
 
 // Need to create a request interface to decouple from 3rd party http clients
 #[derive(Debug)]
