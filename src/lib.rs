@@ -64,6 +64,33 @@ impl Client {
         self
     }
 
+    pub fn block(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/blocks")
+            .build()
+    }
+
+    pub fn cart(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/carts")
+            .build()
+    }
+
+    pub fn call_request(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/call_requests")
+            .build()
+    }
+
     pub fn category (&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
@@ -73,7 +100,62 @@ impl Client {
             .build()
     }
 
-    pub fn product (&self) -> service::Service {
+
+    pub fn discussion (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/discussions")
+            .build()
+    }
+
+    pub fn language (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/languages")
+            .build()
+    }
+
+    pub fn langvars (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/langvars")
+            .build()
+    }
+
+    pub fn order (&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/orders")
+            .build()
+    }
+
+    pub fn page(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/pages")
+            .build()
+    }
+
+    pub fn payment_method(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/payments")
+            .build()
+    }
+
+    pub fn product(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
@@ -81,6 +163,106 @@ impl Client {
             .path("/api/2.0/products")
             .build()
     }
+
+    pub fn product_feature(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/features")
+            .build()
+    }
+
+    pub fn product_variation(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/product_variation")
+            .build()
+    }
+
+    pub fn product_variation_group(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/product_variation_groups")
+            .build()
+    }
+
+    pub fn product_option(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/options")
+            .build()
+    }
+
+    pub fn product_option_combination(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/combinations")
+            .build()
+    }
+
+    pub fn product_option_exceptions(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/exceptions")
+            .build()
+    }
+
+    pub fn settings(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/settings")
+            .build()
+    }
+
+    pub fn shipment(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/shipments")
+            .build()
+    }
+
+    pub fn shipment_method(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/shippings")
+            .build()
+    }
+
+    pub fn status(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/statuses")
+            .build()
+    }
+
+    pub fn tax(&self) -> service::Service {
+        service::Service::new()
+            .host(self.host.as_str())
+            .api_key(self.api_key.as_str())
+            .username(self.username.as_str())
+            .path("/api/2.0/taxes")
+            .build()
+    }
+
 
     pub fn user (&self) -> service::Service {
         service::Service::new()
@@ -91,12 +273,12 @@ impl Client {
             .build()
     }
 
-    pub fn cart (&self) -> service::Service {
+    pub fn user_group(&self) -> service::Service {
         service::Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/carts")
+            .path("/api/2.0/usergroups")
             .build()
     }
 
@@ -106,24 +288,6 @@ impl Client {
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
             .path("/api/2.0/vendors")
-            .build()
-    }
-
-    pub fn payment_method (&self) -> service::Service {
-        service::Service::new()
-            .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .path("/api/2.0/payments")
-            .build()
-    }
-
-    pub fn order(&self) -> service::Service {
-        service::Service::new()
-            .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .path("/api/2.0/orders")
             .build()
     }
 
