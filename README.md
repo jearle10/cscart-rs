@@ -28,30 +28,30 @@ async fn get_categories() -> Result<Value , Box<dyn Error>> {
 
 ### Features
 
-| Entity                     |        Support      | 
-| :---:                      |       :-----:       |   
-| cart                       |         Yes         |      
-| call requests              |         Yes         |            
-| categories                 |         Yes         |              
-| discussions                |         No          |                    
-| languages                  |         No          |                    
-| langvars                   |         No          |                    
-| orders                     |     In progress     |                    
-| pages                      |         No          |                    
-| payment methods            |         Yes         |                    
-| products                   |         Yes         |                    
-| product features           |         No          |                            
-| product variations         |         No          |                    
-| product variation group    |         No          |                    
-| product options            |         No          |                    
-| product option combination |         No          |                    
-| product option exception   |         No          |                     
-| settings                   |     In progress     |                    
-| shipments                  |     In progress     |                     
-| shipping methods           |     In progress     |                    
-| statuses                   |     In progress     |                    
-| stores                     |         No          |                    
-| taxes                      |     In progress     |                    
-| users                      |         Yes         |                    
-| user groups                |     In progress     |                    
-| vendors                    |        Yes          |
+| Entity                     |   Support   | 
+| :---:                      |:-----------:|   
+| cart                       |     Yes     |      
+| call requests              |     Yes     |            
+| categories                 |     Yes     |              
+| discussions                |     No      |                    
+| languages                  |     No      |                    
+| langvars                   |     No      |                    
+| orders                     |     Yes     |                    
+| pages                      |     No      |                    
+| payment methods            |     Yes     |                    
+| products                   |     Yes     |                    
+| product features           |     No      |                            
+| product variations         |     No      |                    
+| product variation group    |     No      |                    
+| product options            |     No      |                    
+| product option combination |     No      |                    
+| product option exception   |     No      |                     
+| settings                   | In progress |                    
+| shipments                  | In progress |                     
+| shipping methods           | In progress |                    
+| statuses                   | In progress |                    
+| stores                     |     No      |                    
+| taxes                      | In progress |                    
+| users                      |     Yes     |                    
+| user groups                | In progress |                    
+| vendors                    |     Yes     |
