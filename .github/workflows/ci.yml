@@ -12,17 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run tests
-        run: |
-          cargo --version
-          cargo test
-          if [ $? -ne 0 ]; then
-            exit 1
-          fi
+        run: cargo test
 
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: rust
-          package-name: release-please-action
+  # Update this to use releaze plz  
+  # release:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: google-github-actions/release-please-action@v3
+  #       with:
+  #         release-type: rust
+  #         package-name: release-please-action
