@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3](https://github.com/jearle10/cscart-rs/compare/v0.5.2...v0.5.3) - 2024-03-06
+
+### Other
+- release-plz
+- release-plz
+- release-plz
+
 ## [0.5.0](https://github.com/jearle10/cscart-rs/compare/v0.4.2...v0.5.0) (2023-06-18)
 
 
