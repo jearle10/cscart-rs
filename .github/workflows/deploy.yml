@@ -1,4 +1,4 @@
-name: Publish
+name: Deploy
 
 permissions:
   pull-requests: write
@@ -9,15 +9,8 @@ env:
   CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
 
 jobs:
-  # publish:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - name: Publish to crates.io
-  #       run: cargo publish --token ${CRATES_IO_API_TOKEN}
-
   release-plz:
-    name: Release-plz
+    name: Publish new release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
