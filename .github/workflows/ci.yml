@@ -16,6 +16,7 @@ jobs:
 
   release-plz:
     name: Release-plz
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
