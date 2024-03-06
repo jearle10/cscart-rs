@@ -1,4 +1,7 @@
-on: [ push ]
+on: 
+  push: 
+    branches-ignore:
+      - 'release-plz-*'
 name: CI
 
 env:
