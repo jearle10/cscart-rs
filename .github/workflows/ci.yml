@@ -10,6 +10,9 @@ on:
             - main
 env:
   CRATES_IO_API_TOKEN: ${{ secrets.CRATES_IO_API_TOKEN }}
+  CSCART_API_KEY: ${{ secrets.CSCART_API_KEY }}
+  CSCART_USERNAME: ${{ secrets.CSCART_USERNAME }}
+  CSCART_HOST: ${{ secrets.CSCART_HOST }}
 
 jobs:
   test:
