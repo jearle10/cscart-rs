@@ -14,16 +14,6 @@ jobs:
       - name: Run tests
         run: cargo test
 
-  # Update this to use releaze plz  
-  # release:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: google-github-actions/release-please-action@v3
-  #       with:
-  #         release-type: rust
-  #         package-name: release-please-action
-
-
   release-plz:
     name: Release-plz
     runs-on: ubuntu-latest
