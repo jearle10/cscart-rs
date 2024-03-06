@@ -1,9 +1,4 @@
-use anyhow;
-use anyhow::Context;
-use dotenv::dotenv;
-use reqwest;
 use serde_json::Value;
-use std::error::Error;
 
 // Need to create a request interface to decouple from 3rd party http clients
 #[derive(Debug)]
@@ -152,6 +147,7 @@ impl Request {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use dotenv::dotenv;
     use serde_json::json;
 
     fn setup() -> Request {

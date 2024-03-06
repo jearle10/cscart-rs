@@ -10,19 +10,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run tests
-        run: |
-          cargo --version
-          cargo test
-          if [ $? -ne 0 ]; then
-            exit 1
-          fi
-
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: rust
-          package-name: release-please-action
+        run: cargo test

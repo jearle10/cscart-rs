@@ -1,9 +1,6 @@
 use crate::request;
-use anyhow;
-use anyhow::Context;
 use serde_json::{json, Value};
 use std::error::Error;
-
 type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 #[derive(Debug)]

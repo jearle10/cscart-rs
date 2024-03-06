@@ -30,13 +30,17 @@ mod crud;
 mod request;
 mod service;
 
-use dotenv::dotenv;
-
 /// Configure an api client to perform requests
 pub struct Client {
     username: String,
     api_key: String,
     host: String,
+}
+
+impl Default for Client {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 impl Client {
@@ -305,6 +309,7 @@ impl Client {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use dotenv::dotenv;
     #[test]
     fn it_creates_api_client() {
         dotenv().ok();
