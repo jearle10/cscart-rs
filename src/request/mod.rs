@@ -207,7 +207,7 @@ mod tests {
         let response = client.delete().await;
 
         match response {
-            Ok(_) => assert!(false),
+            Ok(_) => assert!(true),
             Err(_) => assert!(false),
         }
     }
