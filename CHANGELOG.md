@@ -1,5 +1,71 @@
 # Changelog
 
+## [0.5.2](https://github.com/jearle10/cscart-rs/compare/v0.5.1...v0.5.2) - 2024-03-06
+
+### Added
+- All entities added - some still untested
+- Order service added
+- Added payment method entity to client
+- Added 'create' to all supported entities and added user entitiy to api client
+- Add create method to service and refactor
+- Added vendor entity to client
+- Added cart entity
+- Added product entity to client
+- Added category method
+- Handler struct and HandlerBuilder for abstracting CRUD api calls
+- Implementations for put, post , delete added
+- Request builder for making http requests using basic auth
+- Create an api client using Client struct
+
+### Fixed
+- Refactor create method to use anyhow
+- Readme emojis removed - crates.io didnt render correctly
+- *(docs)* Added top level crate documentation to lib.rs
+- Added missing json payload for put and post reqwest methods
+- Return Error trait object from all request client methods
+- Update readme with how to create api client
+- Updated workflow to include username and host api secrets
+- Updated api credentials test to check for username and host. Added dotenv file for configuring locally
+- Added test to check for cscart api key
+
+### Other
+- release-plz
+- release-plz
+- release-plz
+- test new cicd
+- test new cicd
+- clippy and fmt
+- Merge pull request [#17](https://github.com/jearle10/cscart-rs/pull/17) from jearle10/release-please--branches--main--components--release-please-action
+- cargo fmt
+- Update docs
+- Update docs
+- update name of handler builder to set_handler_credentials
+- All service methods return use anyhow errors
+- Update remaining methods in request to use anyhow
+- Update crates.io publish command
+- *(main)* release 0.4.2
+- Resolve vendor id for failing test and create e2e test files for all entities
+- *(main)* release 0.4.1
+- Manually trigger publishing to crates.io
+- Testing cargo publish workflow
+- Merge branch 'main' into release-please--branches--main--components--release-please-action
+- updated readme
+- updated toml file
+- fix typo
+- Updated features table with status of all entities
+- Readme updates
+- further checkbox tinkering
+- updated readme table syntax
+- Updated readme with features table
+- *(main)* release 0.3.0
+- Add badges to readme
+- Service builder for category and refactor of category service
+- *(main)* release 0.2.0
+- Updated readme with example for retrieving categories
+- *(main)* release 0.1.0
+- Added testing to github workflow
+- Initial commit
+
 ## [0.5.0](https://github.com/jearle10/cscart-rs/compare/v0.4.2...v0.5.0) (2023-06-18)
 
 
