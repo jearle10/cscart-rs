@@ -1,3 +1,4 @@
+use cscart_rs::types::Product;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
@@ -5,9 +6,7 @@ use serde_json::json;
 fn setup() -> Client {
     dotenv().ok(); // For local testing
     let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
-
     let username = std::env::var("CSCART_USERNAME").expect("No username found");
-
     let host = std::env::var("CSCART_HOST").expect("No host found");
 
     Client::new()
@@ -30,9 +29,6 @@ async fn it_creates_a_product() {
     });
 
     let response = api.product().create(test_data).await;
-
-    println!("{:?}", response);
-
     match response {
         Ok(_) => assert!(true),
         Err(e) => {
@@ -46,15 +42,9 @@ async fn it_creates_a_product() {
 async fn it_gets_product_by_id() {
     let api = setup();
 
-    let response = api.product().get_by_id("210").await;
-
-    match response {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    let response = api.product().get_by_id("12").await;
+    let product: Product = serde_json::from_value(response.unwrap()).unwrap();
+    dbg!(product);
 }
 
 #[tokio::test]
@@ -81,9 +71,8 @@ async fn it_gets_all_products() {
     let api = setup();
 
     let response = api.product().get_all().await;
-
-    match response {
-        Ok(_) => assert!(true),
-        Err(_) => assert!(false),
-    }
+    let data = response.unwrap().get("products").unwrap().to_owned();
+    let products: Vec<Product> = serde_json::from_value(data).unwrap();
+    // dbg!(products);
+    dbg!(assert_ne!(products.is_empty(), true));
 }

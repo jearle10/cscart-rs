@@ -29,6 +29,7 @@
 mod crud;
 mod request;
 mod service;
+pub mod types;
 
 /// Configure an api client to perform requests
 pub struct Client {

@@ -1,6 +1,5 @@
 use cscart_rs::Client;
 use dotenv::dotenv;
-use serde_json::json;
 
 fn setup() -> Client {
     dotenv().ok(); // For local testing
