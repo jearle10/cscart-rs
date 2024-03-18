@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.4](https://github.com/jearle10/cscart-rs/compare/v0.5.3...v0.5.4) - 2024-03-18
+
+### Added
+- Add product type
+
+### Fixed
+- Make Product fields public
+
 ## [0.5.3](https://github.com/jearle10/cscart-rs/compare/v0.5.2...v0.5.3) - 2024-03-06
 
 ### Other
