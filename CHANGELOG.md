@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.5.4](https://github.com/jearle10/cscart-rs/compare/v0.5.3...v0.5.4) - 2024-05-15
+
+### Added
+- Add product type
+
+### Fixed
+- merge main
+- merge main
+
+### Other
+- get and create offer methods
+
 ## [0.5.3](https://github.com/jearle10/cscart-rs/compare/v0.5.2...v0.5.3) - 2024-03-06
 
 ### Other
