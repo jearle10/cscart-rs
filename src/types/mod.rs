@@ -59,8 +59,8 @@ pub struct Product {
     shipping_freight: String,
     shipping_params: String,
     short_description: Option<String>,
-    #[serde(deserialize_with = "deserialize_string_or_int_to_vec_i32")]
-    tax_ids: Vec<i32>,
+    // #[serde(deserialize_with = "deserialize_string_or_int_to_vec_i32")]
+    // tax_ids: Vec<i32>,
     timestamp: String,
     tracking: Option<String>,
     unlimited_download: String,
@@ -96,7 +96,7 @@ where
     let value = Value::deserialize(deserializer)?;
 
     // Convert each variant to an array before parsing
-    let value_array = match value {
+    let value_array = match value.clone() {
         Value::Array(x) => x,
         Value::String(y) => vec![Value::String(y)],
         Value::Number(z) => vec![Value::Number(z)],
@@ -105,8 +105,8 @@ where
 
     let mut parse_results: Vec<Option<i64>> = vec![];
 
-    for value in value_array {
-        match value {
+    for item in value_array {
+        match item {
             Value::Array(values) => {
                 for i in values.iter() {
                     match i {
@@ -123,9 +123,10 @@ where
     }
 
     match parse_results {
-        bad_result if bad_result.contains(&None) => {
-            Err(serde::de::Error::custom("Could not parse"))
-        }
+        bad_result if bad_result.contains(&None) => Err(serde::de::Error::custom(format!(
+            "Could not parse, {}",
+            value
+        ))),
         mut good_result => Ok(good_result.iter_mut().map(|x| x.unwrap() as i32).collect()),
     }
 }
