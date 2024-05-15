@@ -9,8 +9,8 @@ pub struct Product {
     main_category: i32,
     price: String,
     #[serde(deserialize_with = "deserialize_string_or_int")]
-    company_id: i32,
-    status: String,
+    pub company_id: i32,
+    pub status: String,
     #[serde(deserialize_with = "deserialize_string_or_int")]
     amount: i32,
     avail_since: String,
@@ -47,8 +47,8 @@ pub struct Product {
     product_code: String,
     // TODO product_features
     #[serde(deserialize_with = "deserialize_string_or_int")]
-    product_id: i32,
-    promo_text: Option<String>,
+    pub product_id: i32,
+    pub promo_text: Option<String>,
     #[serde(deserialize_with = "deserialize_string_or_int")]
     qty_step: i32,
     return_period: String,
@@ -68,8 +68,8 @@ pub struct Product {
     #[serde(deserialize_with = "deserialize_string_or_int_to_vec_i32")]
     usergroup_ids: Vec<i32>,
     #[serde(deserialize_with = "deserialize_string_or_float")]
-    weight: f32,
-    zero_price_action: String,
+    pub weight: f32,
+    pub zero_price_action: String,
 }
 
 fn deserialize_string_or_int<'de, D>(deserializer: D) -> Result<i32, D::Error>
