@@ -1,0 +1,540 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in library 'cscart-rs'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "cscart-rs",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'shipping_method'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=shipping_method",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "shipping_method",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'order'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=order",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "order",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_variation'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_variation",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_variation",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'payment_method'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=payment_method",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "payment_method",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'vendor'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=vendor",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "vendor",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_option_combination'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_option_combination",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_option_combination",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'user_group'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=user_group",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "user_group",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'store'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=store",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "store",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'tax'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=tax",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "tax",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'cart'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=cart",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "cart",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'user'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=user",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "user",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'languages'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=languages",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "languages",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_exception'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_exception",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_exception",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'shipment'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=shipment",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "shipment",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_variation_group'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_variation_group",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_variation_group",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'status'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=status",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "status",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'category'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=category",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "category",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'discussion'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=discussion",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "discussion",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'blocks'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=blocks",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "blocks",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'langvars'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=langvars",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "langvars",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'settings'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=settings",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "settings",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_feature'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_feature",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_feature",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'product_option'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=product_option",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "product_option",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'pages'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=pages",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "pages",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'call_request'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=call_request",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "call_request",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug integration test 'setup'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--test=setup",
+                    "--package=cscart-rs"
+                ],
+                "filter": {
+                    "name": "setup",
+                    "kind": "test"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}
