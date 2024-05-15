@@ -23,6 +23,7 @@ jobs:
         run: cargo test
 
   release-plz:
+    if: github.ref != !contains(github.ref, 'refs/tags/v')
     name: Create release PR
     needs: [test]
     runs-on: ubuntu-latest
