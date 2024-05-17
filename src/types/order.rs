@@ -19,3 +19,8 @@ pub struct Order {
     credit_memo_id: Option<String>,
     points: Option<String>,
 }
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct OrderDetails {
+    order_id: Option<String>,
+}
