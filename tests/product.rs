@@ -44,7 +44,7 @@ async fn it_gets_product_by_id() {
 
     let response = api.product().get_by_id("12").await;
     let product: Product = serde_json::from_value(response.unwrap()).unwrap();
-    dbg!(product);
+    assert_eq!(product.product_id, 12)
 }
 
 #[tokio::test]
@@ -73,6 +73,5 @@ async fn it_gets_all_products() {
     let response = api.product().get_all().await;
     let data = response.unwrap().get("products").unwrap().to_owned();
     let products: Vec<Product> = serde_json::from_value(data).unwrap();
-    // dbg!(products);
-    dbg!(assert_ne!(products.is_empty(), true));
+    assert_ne!(products.is_empty(), true);
 }

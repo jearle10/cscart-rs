@@ -1,3 +1,5 @@
+use anyhow::Context;
+use cscart_rs::types::Order;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
@@ -22,15 +24,16 @@ async fn it_gets_all_orders() {
     let api = setup();
     let response = api.order().get_all().await;
 
-    match response {
-        Ok(d) => {
-            assert!(true)
+    match response.ok() {
+        Some(mut value) => {
+            let order_summaries = value.get_mut("orders").unwrap().clone();
+            let orders: Vec<Order> = serde_json::from_value(order_summaries).unwrap();
+
+            dbg!(orders);
+            assert!(true);
         }
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+        None => assert!(false),
+    };
 }
 
 #[tokio::test]
