@@ -23,4 +23,5 @@ pub struct Order {
 #[derive(Deserialize, Serialize, Debug)]
 pub struct OrderDetails {
     order_id: Option<String>,
+    payment_method: String,
 }
