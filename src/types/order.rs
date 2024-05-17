@@ -24,4 +24,5 @@ pub struct Order {
 pub struct OrderDetails {
     order_id: Option<String>,
     payment_method: String,
+    storefront_id: String,
 }
