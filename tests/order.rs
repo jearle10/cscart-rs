@@ -20,6 +20,21 @@ fn setup() -> Client {
 }
 
 #[tokio::test]
+async fn it_gets_an_order_by_id() {
+    let api = setup();
+    let response = api.order().get_by_id("355").await;
+
+    match response.ok() {
+        Some(value) => {
+            let order: Order = serde_json::from_value(value).unwrap();
+            dbg!(&order);
+            assert_eq!(order.user_id, Some("3".to_string()));
+        }
+        None => assert!(false),
+    };
+}
+
+#[tokio::test]
 async fn it_gets_all_orders() {
     let api = setup();
     let response = api.order().get_all().await;
