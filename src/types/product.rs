@@ -58,8 +58,8 @@ pub struct Product {
     shipping_freight: String,
     shipping_params: String,
     short_description: Option<String>,
-    // #[serde(deserialize_with = "deserialize_string_or_int_to_vec_i32")]
-    // TODO tax_ids: Vec<i32>,
+    #[serde(deserialize_with = "deserialize_string_or_int_to_vec_i32")]
+    tax_ids: Vec<i32>,
     timestamp: String,
     tracking: Option<String>,
     unlimited_download: String,

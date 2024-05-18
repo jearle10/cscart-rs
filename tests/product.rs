@@ -43,7 +43,7 @@ async fn it_gets_product_by_id() {
     let api = setup();
 
     let response = api.product().get_by_id("12").await;
-    let product: Product = serde_json::from_value(response.unwrap()).unwrap();
+    let product: Product = serde_json::from_value(dbg!(response.unwrap())).unwrap();
     assert_eq!(product.product_id, 12)
 }
 
