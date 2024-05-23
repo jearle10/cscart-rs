@@ -78,228 +78,203 @@ impl Client {
     }
 
     pub fn block(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Blocks)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/blocks")
             .build()
     }
 
     pub fn cart(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Cart)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/carts")
             .build()
     }
 
     pub fn call_request(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::CallRequest)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/call_requests")
             .build()
     }
 
     pub fn category(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Category)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/categories")
             .build()
     }
 
     pub fn discussion(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Discussion)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/discussions")
             .build()
     }
 
     pub fn language(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Languages)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/languages")
             .build()
     }
 
     pub fn langvars(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Langvars)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/langvars")
             .build()
     }
 
     pub fn order(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Order)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/orders")
             .build()
     }
 
     pub fn page(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Pages)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/pages")
             .build()
     }
 
     pub fn payment_method(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::PaymentMethod)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/payments")
             .build()
     }
 
     pub fn product(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Product)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/products")
             .build()
     }
 
     pub fn product_feature(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductFeature)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/features")
             .build()
     }
 
     pub fn product_variation(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductVariation)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/product_variation")
             .build()
     }
 
     pub fn product_variation_group(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductVariationGroup)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/product_variation_groups")
             .build()
     }
 
     pub fn product_option(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductOption)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/options")
             .build()
     }
 
     pub fn product_option_combination(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductOptionCombination)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/combinations")
             .build()
     }
 
     pub fn product_option_exceptions(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ProductException)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/exceptions")
             .build()
     }
 
     pub fn settings(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Settings)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/settings")
             .build()
     }
 
     pub fn shipment(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Shipment)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/shipments")
             .build()
     }
 
     pub fn shipment_method(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::ShipmentMethod)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/shippings")
             .build()
     }
 
     pub fn status(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Status)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/statuses")
             .build()
     }
 
     pub fn tax(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Tax)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/taxes")
             .build()
     }
 
     pub fn user(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::User)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/users")
             .param(("user_type", "A"))
             .build()
     }
 
     pub fn user_group(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::UserGroups)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/usergroups")
             .build()
     }
 
     pub fn vendor(&self) -> Service {
-        Service::new()
+        Service::with_resource(Resource::Vendor)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/vendors")
             .build()
     }
 

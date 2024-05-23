@@ -1,4 +1,4 @@
-use cscart_rs::types::Product;
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;

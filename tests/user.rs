@@ -1,3 +1,4 @@
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::{json, Value};
@@ -48,9 +49,12 @@ async fn it_gets_user_by_id() {
     let response = api.user().get_by_id("1").await;
 
     match response {
-        Ok(_) => assert!(true),
+        Ok(value) => {
+            let user: User = serde_json::from_value(value).unwrap();
+            assert_eq!(user.user_id, Some("1".to_string()));
+        }
         Err(e) => assert!(false),
-    }
+    };
 }
 
 #[tokio::test]
@@ -81,9 +85,12 @@ async fn it_gets_all_users() {
     let api = setup();
 
     let response = api.user().get_all().await;
-
     match response {
-        Ok(_) => assert!(true),
+        Ok(mut value) => {
+            let users_value = value.get_mut("users").cloned().unwrap();
+            let users: Vec<User> = serde_json::from_value(users_value).unwrap();
+            assert!(users.len() > 0)
+        }
         Err(_) => assert!(false),
     }
 }
