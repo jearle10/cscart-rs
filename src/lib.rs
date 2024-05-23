@@ -29,8 +29,15 @@
 mod crud;
 mod request;
 mod service;
-pub mod types;
+mod types;
 mod utils;
+
+pub mod prelude {
+    pub use crate::service::*;
+    pub use crate::types::*;
+}
+
+use prelude::*;
 
 /// Configure an api client to perform requests
 pub struct Client {
@@ -70,8 +77,8 @@ impl Client {
         self
     }
 
-    pub fn block(&self) -> service::Service {
-        service::Service::new()
+    pub fn block(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -79,8 +86,8 @@ impl Client {
             .build()
     }
 
-    pub fn cart(&self) -> service::Service {
-        service::Service::new()
+    pub fn cart(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -88,8 +95,8 @@ impl Client {
             .build()
     }
 
-    pub fn call_request(&self) -> service::Service {
-        service::Service::new()
+    pub fn call_request(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -97,8 +104,8 @@ impl Client {
             .build()
     }
 
-    pub fn category(&self) -> service::Service {
-        service::Service::new()
+    pub fn category(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -106,8 +113,8 @@ impl Client {
             .build()
     }
 
-    pub fn discussion(&self) -> service::Service {
-        service::Service::new()
+    pub fn discussion(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -115,8 +122,8 @@ impl Client {
             .build()
     }
 
-    pub fn language(&self) -> service::Service {
-        service::Service::new()
+    pub fn language(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -124,8 +131,8 @@ impl Client {
             .build()
     }
 
-    pub fn langvars(&self) -> service::Service {
-        service::Service::new()
+    pub fn langvars(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -133,8 +140,8 @@ impl Client {
             .build()
     }
 
-    pub fn order(&self) -> service::Service {
-        service::Service::new()
+    pub fn order(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -142,8 +149,8 @@ impl Client {
             .build()
     }
 
-    pub fn page(&self) -> service::Service {
-        service::Service::new()
+    pub fn page(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -151,8 +158,8 @@ impl Client {
             .build()
     }
 
-    pub fn payment_method(&self) -> service::Service {
-        service::Service::new()
+    pub fn payment_method(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -160,8 +167,8 @@ impl Client {
             .build()
     }
 
-    pub fn product(&self) -> service::Service {
-        service::Service::new()
+    pub fn product(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -169,8 +176,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_feature(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_feature(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -178,8 +185,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_variation(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_variation(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -187,8 +194,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_variation_group(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_variation_group(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -196,8 +203,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_option(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -205,8 +212,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_option_combination(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option_combination(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -214,8 +221,8 @@ impl Client {
             .build()
     }
 
-    pub fn product_option_exceptions(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option_exceptions(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -223,8 +230,8 @@ impl Client {
             .build()
     }
 
-    pub fn settings(&self) -> service::Service {
-        service::Service::new()
+    pub fn settings(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -232,8 +239,8 @@ impl Client {
             .build()
     }
 
-    pub fn shipment(&self) -> service::Service {
-        service::Service::new()
+    pub fn shipment(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -241,8 +248,8 @@ impl Client {
             .build()
     }
 
-    pub fn shipment_method(&self) -> service::Service {
-        service::Service::new()
+    pub fn shipment_method(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -250,8 +257,8 @@ impl Client {
             .build()
     }
 
-    pub fn status(&self) -> service::Service {
-        service::Service::new()
+    pub fn status(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -259,8 +266,8 @@ impl Client {
             .build()
     }
 
-    pub fn tax(&self) -> service::Service {
-        service::Service::new()
+    pub fn tax(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -268,17 +275,18 @@ impl Client {
             .build()
     }
 
-    pub fn user(&self) -> service::Service {
-        service::Service::new()
+    pub fn user(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
             .path("/api/2.0/users")
+            .param(("user_type", "A"))
             .build()
     }
 
-    pub fn user_group(&self) -> service::Service {
-        service::Service::new()
+    pub fn user_group(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
@@ -286,8 +294,8 @@ impl Client {
             .build()
     }
 
-    pub fn vendor(&self) -> service::Service {
-        service::Service::new()
+    pub fn vendor(&self) -> Service {
+        Service::new()
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
