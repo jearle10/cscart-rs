@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.6.0](https://github.com/jearle10/cscart-rs/compare/v0.5.6...v0.6.0) - 2024-05-24
+
+### Other
+- More types ([#32](https://github.com/jearle10/cscart-rs/pull/32))
+
 ## [0.5.6](https://github.com/jearle10/cscart-rs/compare/v0.5.5...v0.5.6) - 2024-05-19
 
 ### Added
