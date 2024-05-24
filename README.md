@@ -9,54 +9,61 @@ NOTE: This is not yet stable and is a work in progress!
 
 ### Getting started
 ```rust
-use cscart_rs::Client;
-use serde_json::Value;
+ use cscart_rs::prelude::*;
+ use cscart_rs::Client;
+ use serde_json::Value;
+ use anyhow;
 
-async fn get_categories() -> Result<Value , Box<dyn Error>> {
-    let client = Client::new()
-        .host("http://my-ecommerce-site.com")
-        .username("my-user-email@email.com")
-        .api_key("user-api-key");
-    
-    let categories = client
-        .category()
-        .get_all().await;
-    
-    println!("{:?}" , &categories);
-    
-    categories
-}
-```
+
+ async fn get_categories() -> anyhow::Result<Vec<Category>> {
+     let client = Client::new()
+         .host("http://my-ecommerce-site.com")
+         .username("my-user-email@email.com")
+         .api_key("user-api-key");
+
+     let categories = client
+         .category()
+         .get_all(GetAllOptions::default()).await;
+
+    /*
+      Requests and Response types are in progress for each entity.
+      In the meantime there are types in the prelude..
+      
+      Check the CScart docs to know the request and response payloads
+      if there isn't a type for the specific service you need
+
+      Payload from the docs (https://docs.cs-cart.com/latest/developer_guide/api/entities/categories.html)
+     */ 
+
+    serde_json::from_value::<Vec<Category>>(categories)?;
+ }
+ ```
 
 ### Creating a category
 ```rust
-use cscart_rs::Client;
-use serde_json::Value;
+ use cscart_rs::prelude::*;
+ use cscart_rs::Client;
+ use serde_json::Value;
+ use anyhow;
 
-async fn create_category() -> Result<Value , Box<dyn Error>> {
+async fn create_category() -> anyhow::Result<Value> {
     let client = Client::new()
         .host("http://my-ecommerce-site.com")
         .username("my-user-email@email.com")
         .api_key("user-api-key");
-    
-    /*
-      Requests and Response types are in progress for each entity...
-      In the meantime check the CScart docs to know the request and response payloads
-     */
-    
-    // Payload from the docs (https://docs.cs-cart.com/latest/developer_guide/api/entities/categories.html) 
+
     let new_category = json!({
         "category" : "My new category",
         "company_id" : 1
     });
     
-    let category = client
+    let response = client
         .category()
         .create(new_category).await;
     
-    println!("{:?}" , &category);
+    println!("{:?}" , &response);
     
-    category
+    response
 }
 ```
 
