@@ -33,6 +33,7 @@ mod types;
 mod utils;
 
 pub mod prelude {
+    pub use crate::request::Auth;
     pub use crate::service::*;
     pub use crate::types::*;
 }
@@ -77,204 +78,154 @@ impl Client {
         self
     }
 
-    pub fn block(&self) -> Service {
-        Service::with_resource(Resource::Blocks)
+    pub fn block(&self) -> Service<Authenticated> {
+        Service::<Unauthenticated>::with_resource(Resource::Blocks)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn cart(&self) -> Service {
+    pub fn cart(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Cart)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn call_request(&self) -> Service {
+    pub fn call_request(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::CallRequest)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn category(&self) -> Service {
+    pub fn category(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Category)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn discussion(&self) -> Service {
+    pub fn discussion(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Discussion)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn language(&self) -> Service {
+    pub fn language(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Languages)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn langvars(&self) -> Service {
+    pub fn langvars(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Langvars)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn order(&self) -> Service {
+    pub fn order(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Order)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn page(&self) -> Service {
+    pub fn page(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Pages)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn payment_method(&self) -> Service {
+    pub fn payment_method(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::PaymentMethod)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product(&self) -> Service {
+    pub fn product(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Product)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_feature(&self) -> Service {
+    pub fn product_feature(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductFeature)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_variation(&self) -> Service {
+    pub fn product_variation(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductVariation)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_variation_group(&self) -> Service {
+    pub fn product_variation_group(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductVariationGroup)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_option(&self) -> Service {
+    pub fn product_option(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductOption)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_option_combination(&self) -> Service {
+    pub fn product_option_combination(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductOptionCombination)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn product_option_exceptions(&self) -> Service {
+    pub fn product_option_exceptions(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ProductException)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn settings(&self) -> Service {
+    pub fn settings(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Settings)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn shipment(&self) -> Service {
+    pub fn shipment(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Shipment)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn shipment_method(&self) -> Service {
+    pub fn shipment_method(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::ShipmentMethod)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn status(&self) -> Service {
+    pub fn status(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Status)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn tax(&self) -> Service {
+    pub fn tax(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Tax)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn user(&self) -> Service {
+    pub fn user(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::User)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn user_group(&self) -> Service {
+    pub fn user_group(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::UserGroups)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
-    pub fn vendor(&self) -> Service {
+    pub fn vendor(&self) -> Service<Authenticated> {
         Service::with_resource(Resource::Vendor)
             .host(self.host.as_str())
-            .api_key(self.api_key.as_str())
-            .username(self.username.as_str())
-            .build()
+            .auth(Auth::from(&self.username, &self.api_key))
     }
 
     fn get_username(&self) -> &str {

@@ -1,76 +1,105 @@
-use crate::handler;
 use crate::handler::HandlerBuilder;
+use crate::handler::{self};
 use crate::prelude::*;
 use serde_json::Value;
+use std::marker::PhantomData;
 
-// Business logic
-pub struct Service {
-    pub(crate) host: String,
-    pub(crate) api_key: String,
-    pub(crate) username: String,
-    pub(crate) resource: Resource,
-    pub(crate) entity: String, // sub-entity e.g /api/2.0/categories/<id>/products//  Break the path into path , entity and sub_entity methods
-    pub(crate) params: Vec<(String, String)>,
+pub struct Unauthenticated;
+pub struct OnlyHost;
+pub struct OnlyAuth;
+pub struct Authenticated;
+
+pub trait ServiceState {}
+
+impl ServiceState for Unauthenticated {}
+impl ServiceState for Authenticated {}
+impl ServiceState for OnlyHost {}
+impl ServiceState for OnlyAuth {}
+
+pub struct Service<S: ServiceState> {
+    pub _marker: PhantomData<S>,
+    pub(crate) host: Option<String>,
+    pub(crate) auth: Option<Auth>,
+    pub(crate) resource: Option<Resource>,
+    pub(crate) entity: Option<String>, // sub-entity e.g /api/2.0/categories/<id>/products//  Break the path into path , entity and sub_entity methods
+    pub(crate) params: Option<Vec<(String, String)>>,
 }
 
-pub struct ServiceBuilder {
-    pub(crate) host: String,
-    pub(crate) api_key: String,
-    pub(crate) username: String,
-    pub(crate) resource: Resource,
-    pub(crate) entity: String, // last part of path
-    pub(crate) params: Vec<(String, String)>,
+impl Service<Unauthenticated> {
+    pub fn with_resource(resource: Resource) -> Service<Unauthenticated> {
+        Service::<Unauthenticated> {
+            _marker: PhantomData,
+            host: None,
+            auth: None,
+            resource: Some(resource),
+            entity: None,
+            params: None,
+        }
+    }
 }
 
-impl ServiceBuilder {
-    pub fn host(mut self, host: &str) -> Self {
-        self.host = host.to_string();
-        self
-    }
-    pub fn api_key(mut self, api_key: &str) -> Self {
-        self.api_key = api_key.to_string();
-        self
-    }
-    pub fn username(mut self, username: &str) -> Self {
-        self.username = username.to_string();
-        self
-    }
-
-    pub fn build(self) -> Service {
-        Service {
-            host: self.host,
-            api_key: self.api_key,
-            username: self.username,
-            entity: "".to_string(),
+impl Service<Unauthenticated> {
+    pub fn host(self, host: &str) -> Service<OnlyHost> {
+        Service::<OnlyHost> {
+            _marker: PhantomData,
+            host: Some(host.into()),
+            auth: None,
             resource: self.resource,
-            params: vec![],
+            entity: None,
+            params: None,
+        }
+    }
+
+    pub fn auth(self, auth: Auth) -> Service<OnlyAuth> {
+        Service::<OnlyAuth> {
+            _marker: PhantomData,
+            host: None,
+            auth: Some(auth),
+            resource: self.resource,
+            entity: None,
+            params: None,
         }
     }
 }
 
-impl Service {
-    pub fn with_resource(resource: Resource) -> ServiceBuilder {
-        ServiceBuilder {
-            host: "".to_string(),
-            api_key: "".to_string(),
-            username: "".to_string(),
-            entity: "".to_string(),
-            params: vec![],
-            resource,
+impl Service<OnlyHost> {
+    pub fn auth(self, auth: Auth) -> Service<Authenticated> {
+        Service::<Authenticated> {
+            _marker: PhantomData,
+            host: self.host,
+            auth: Some(auth),
+            resource: self.resource,
+            entity: None,
+            params: None,
         }
     }
+}
 
+impl Service<OnlyAuth> {
+    pub fn host(self, host: &str) -> Service<Authenticated> {
+        Service::<Authenticated> {
+            _marker: PhantomData,
+            host: Some(host.into()),
+            auth: self.auth,
+            resource: self.resource,
+            entity: None,
+            params: None,
+        }
+    }
+}
+
+impl Service<Authenticated> {
     fn set_handler_credentials(&self) -> HandlerBuilder {
         handler::Handler::new()
-            .host(self.host.as_str())
-            .username(self.username.as_str())
-            .api_key(self.api_key.as_str())
+            .host(self.host.as_ref().unwrap().as_str())
+            .username(self.auth.as_ref().unwrap().username())
+            .api_key(self.auth.as_ref().unwrap().api_key())
     }
 
     pub async fn create(&self, data: Value) -> anyhow::Result<Value> {
         let handler = self
             .set_handler_credentials()
-            .path(self.resource.path().to_string())
+            .path(self.resource.as_ref().unwrap().path())
             .build();
         let rsp = handler.create(data).await?;
         Ok(rsp)
@@ -80,7 +109,7 @@ impl Service {
         // This method sometimes requires mandatory params to be provided (depending on resource e.g User requires user_type)
         let handler = self
             .set_handler_credentials()
-            .path(self.resource.path().to_string())
+            .path(self.resource.as_ref().unwrap().path())
             .set_query_params(options.params())
             .build();
         let rsp = handler.read().await?;
@@ -90,7 +119,7 @@ impl Service {
     pub async fn get_by_id(&mut self, id: &str) -> anyhow::Result<Value> {
         let handler = self
             .set_handler_credentials()
-            .path(format!("{}/{}", &self.resource.path().to_string(), id))
+            .path(format!("{}/{}", self.resource.as_ref().unwrap().path(), id))
             .build();
 
         let rsp = handler.read().await?;
@@ -100,7 +129,7 @@ impl Service {
     pub async fn update_by_id(&self, id: &str, data: Value) -> anyhow::Result<Value> {
         let handler = self
             .set_handler_credentials()
-            .path(format!("{}/{}", &self.resource.path(), id))
+            .path(format!("{}/{}", self.resource.as_ref().unwrap().path(), id))
             .build();
 
         let rsp = handler.update(data).await?;
@@ -110,7 +139,7 @@ impl Service {
     pub async fn delete_by_id(&self, id: &str) -> anyhow::Result<Value> {
         let handler = self
             .set_handler_credentials()
-            .path(format!("{}/{}", &self.resource.path(), id))
+            .path(format!("{}/{}", self.resource.as_ref().unwrap().path(), id))
             .build();
 
         let rsp = handler.delete().await?;
@@ -120,14 +149,15 @@ impl Service {
     pub async fn get_all_entity(&mut self, id: &str, entity: &str) -> anyhow::Result<Value> {
         let handler = self
             .set_handler_credentials()
-            .path(format!("{}/{}/{}", &self.resource.path(), id, entity))
+            .path(format!(
+                "{}/{}/{}",
+                self.resource.as_ref().unwrap().path(),
+                id,
+                entity
+            ))
             .build();
 
         let rsp = handler.read().await?;
         Ok(rsp)
-    }
-
-    pub async fn send() -> anyhow::Result<Value> {
-        Ok(Value::Null)
     }
 }

@@ -1,8 +1,29 @@
 use serde_json::Value;
 
+#[derive(Debug)]
 pub struct Auth {
     username: String,
     api_key: String,
+}
+
+impl Auth {
+    pub fn username(&self) -> &str {
+        &self.username
+    }
+
+    pub fn api_key(&self) -> &str {
+        &self.api_key
+    }
+
+    pub fn from<I>(username: I, api_key: I) -> Self
+    where
+        I: Into<String>,
+    {
+        Auth {
+            username: username.into(),
+            api_key: api_key.into(),
+        }
+    }
 }
 
 pub trait HttpClient {

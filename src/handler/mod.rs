@@ -36,8 +36,11 @@ impl HandlerBuilder {
         self
     }
 
-    pub(crate) fn path(mut self, path: String) -> Self {
-        self.path = path;
+    pub(crate) fn path<T>(mut self, path: T) -> Self
+    where
+        T: Into<String>,
+    {
+        self.path = path.into();
         self
     }
 
