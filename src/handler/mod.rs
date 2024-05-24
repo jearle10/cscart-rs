@@ -1,7 +1,5 @@
 use crate::request;
 use serde_json::{json, Value};
-use std::error::Error;
-type Result<T> = std::result::Result<T, Box<dyn Error>>;
 
 #[derive(Debug)]
 pub struct Handler {
@@ -9,6 +7,8 @@ pub struct Handler {
     api_key: String,
     host: String,
     path: String,
+    query_params: Vec<(String, String)>,
+    api: Option<request::Request>,
 }
 
 pub struct HandlerBuilder {
@@ -16,6 +16,8 @@ pub struct HandlerBuilder {
     api_key: String,
     host: String,
     path: String,
+    query_params: Vec<(String, String)>,
+    api: Option<request::Request>,
 }
 
 impl HandlerBuilder {
@@ -34,8 +36,16 @@ impl HandlerBuilder {
         self
     }
 
-    pub(crate) fn path(mut self, path: &str) -> Self {
-        self.path = path.to_string();
+    pub(crate) fn path(mut self, path: String) -> Self {
+        self.path = path;
+        self
+    }
+
+    pub(crate) fn set_query_params(mut self, params: &[(String, String)]) -> Self {
+        self.query_params = Vec::new();
+        for param in params {
+            self.query_params.push(param.clone());
+        }
         self
     }
 
@@ -45,6 +55,8 @@ impl HandlerBuilder {
             api_key: self.api_key,
             host: self.host,
             path: self.path,
+            query_params: self.query_params,
+            api: self.api,
         }
     }
 }
@@ -56,6 +68,8 @@ impl Handler {
             api_key: "".to_string(),
             host: "".to_string(),
             path: "".to_string(),
+            query_params: Vec::new(),
+            api: None,
         }
     }
 
@@ -77,6 +91,7 @@ impl Handler {
         let request = request::Request::new()
             .host(&self.host)
             .path(&self.path)
+            .params(&self.query_params)
             .username(&self.username)
             .api_key(&self.api_key)
             .build();
@@ -119,6 +134,7 @@ impl Handler {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::prelude::*;
     use dotenv::dotenv;
 
     fn setup() -> Handler {
@@ -131,9 +147,9 @@ mod tests {
 
         Handler::new()
             .host(host.as_str())
-            .path("/api/2.0/categories")
             .username(username.as_str())
             .api_key(api_key.as_str())
+            .path(Resource::Category.path().to_string())
             .build()
     }
 

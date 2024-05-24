@@ -1,3 +1,4 @@
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 
@@ -34,7 +35,7 @@ async fn it_gets_cart_by_id() {
 async fn it_gets_all_carts() {
     let api = setup();
 
-    let response = api.cart().get_all().await;
+    let response = api.cart().get_all(GetAllOptions::default()).await;
 
     println!("{:?}", response);
 

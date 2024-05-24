@@ -1,4 +1,4 @@
-use cscart_rs::Client;
+use cscart_rs::{prelude::GetAllOptions, Client};
 use dotenv::dotenv;
 use serde_json::json;
 
@@ -76,7 +76,7 @@ async fn it_updates_payment_method_by_id() {
 async fn it_gets_all_payment_methods() {
     let api = setup();
 
-    let response = api.payment_method().get_all().await;
+    let response = api.payment_method().get_all(GetAllOptions::default()).await;
 
     println!("{:?}", response);
 

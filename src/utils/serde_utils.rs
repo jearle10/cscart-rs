@@ -115,14 +115,26 @@ impl<'de> Visitor<'de> for Deserializei32WithVisitor {
     where
         E: Error,
     {
-        Ok(v as i32) // TODO shouldn't really truncate (handle overflows)
+        if let Ok(v) = i32::try_from(v) {
+            Ok(v)
+        } else {
+            Err(E::custom(format!(
+                "overflow: Unable to convert u64 value `{v:?}` to i32"
+            )))
+        }
     }
 
     fn visit_f64<E>(self, v: f64) -> Result<Self::Value, E>
     where
         E: Error,
     {
-        Ok(v as i32) // TODO shouldn't really truncate (handle overflows)
+        if let Ok(v) = i32::try_from(v.round() as i64) {
+            Ok(v)
+        } else {
+            Err(E::custom(format!(
+                "overflow: Unable to convert f64 value `{v:?}` to i32"
+            )))
+        }
     }
 
     fn visit_i32<E>(self, v: i32) -> Result<Self::Value, E>
@@ -136,20 +148,21 @@ impl<'de> Visitor<'de> for Deserializei32WithVisitor {
     where
         E: Error,
     {
-        Ok(v as i32) // TODO shouldn't really truncate (handle overflows)
+        if let Ok(v) = i32::try_from(v) {
+            Ok(v)
+        } else {
+            Err(E::custom(format!(
+                "overflow: Unable to convert i64 value `{v:?}` to i32"
+            )))
+        }
     }
 
     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
     where
         E: Error,
     {
-        if let Ok(n) = v.parse::<f64>() {
-            match i32::try_from(n.round() as i64) {
-                Ok(v) => Ok(v),
-                Err(_) => Err(E::custom(format!(
-                    "overflow: Unable to convert f64 value `{v:?}` to i32"
-                ))),
-            }
+        if let Ok(n) = v.parse::<i32>() {
+            Ok(n)
         } else {
             Err(E::invalid_value(Unexpected::Str(v), &self))
         }
@@ -169,29 +182,47 @@ impl<'de> Visitor<'de> for Deserializef32WithVisitor {
     where
         E: Error,
     {
-        Ok(v as f32) // TODO shouldn't really truncate (handle overflows)
+        if v < f32::MIN as f64 || v > f32::MAX as f64 {
+            Err(E::custom(format!(
+                "overflow: Unable to convert f64 value `{v:?}` to f32"
+            )))
+        } else {
+            Ok(v as f32)
+        }
     }
 
     fn visit_i64<E>(self, v: i64) -> Result<Self::Value, E>
     where
         E: Error,
     {
-        Ok(v as f32) // TODO shouldn't really truncate (handle overflows)
+        if let Ok(v) = i32::try_from(v) {
+            Ok(v as f32)
+        } else {
+            Err(E::custom(format!(
+                "overflow: Unable to convert i64 value `{v:?}` to f32"
+            )))
+        }
     }
 
     fn visit_u64<E>(self, v: u64) -> Result<Self::Value, E>
     where
         E: Error,
     {
-        Ok(v as f32) // TODO shouldn't really truncate (handle overflows)
+        if let Ok(v) = i32::try_from(v) {
+            Ok(v as f32)
+        } else {
+            Err(E::custom(format!(
+                "overflow: Unable to convert u64 value `{v:?}` to f32"
+            )))
+        }
     }
 
     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
     where
         E: Error,
     {
-        if let Ok(n) = v.parse::<f64>() {
-            Ok(n as f32)
+        if let Ok(n) = v.parse::<f32>() {
+            Ok(n)
         } else {
             Err(E::invalid_value(Unexpected::Str(v), &self))
         }
@@ -216,7 +247,7 @@ mod product_unit_tests {
     }
 
     #[test]
-    fn it_deserializes_string_or_float_to_i32() {
+    fn it_deserializes_string_or_float_to_f32() {
         let data: serde::de::value::StrDeserializer<_> = r#"5.5"#.into_deserializer();
         let value: Result<f32, serde_json::Error> = deserialize_string_or_float_to_f32(data);
 

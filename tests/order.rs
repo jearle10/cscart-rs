@@ -1,4 +1,4 @@
-use cscart_rs::types::Order;
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
@@ -20,7 +20,7 @@ fn setup() -> Client {
 #[tokio::test]
 async fn it_gets_an_order_by_id() {
     let api = setup();
-    let response = api.order().get_by_id("355").await;
+    let response = dbg!(api.order().get_by_id("355").await);
 
     match response.ok() {
         Some(value) => {
@@ -35,7 +35,7 @@ async fn it_gets_an_order_by_id() {
 #[tokio::test]
 async fn it_gets_all_orders() {
     let api = setup();
-    let response = api.order().get_all().await;
+    let response = api.order().get_all(GetAllOptions::default()).await;
 
     match response.ok() {
         Some(mut value) => {

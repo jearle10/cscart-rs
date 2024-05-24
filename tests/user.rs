@@ -1,7 +1,6 @@
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
-use serde_json::{json, Value};
-use std::error::Error;
 use uuid::Uuid;
 
 fn setup() -> Client {
@@ -24,7 +23,7 @@ async fn it_creates_and_deletes_a_user() {
 
     let guuid = Uuid::new_v4();
 
-    let test_user = json!({
+    let test_user = serde_json::json!({
         "email" : format!("{}@test.com" , guuid),
         "user_type" : "C",
         "company_id" : "1",
@@ -48,16 +47,19 @@ async fn it_gets_user_by_id() {
     let response = api.user().get_by_id("1").await;
 
     match response {
-        Ok(_) => assert!(true),
+        Ok(value) => {
+            let user: User = serde_json::from_value(value).unwrap();
+            assert_eq!(user.user_id, Some("1".to_string()));
+        }
         Err(e) => assert!(false),
-    }
+    };
 }
 
 #[tokio::test]
 async fn it_updates_user_by_id() {
     let api = setup();
 
-    let user = json!({
+    let user = serde_json::json!({
         "email" : "jianearle93@googlemail.com",
         "user_type" : "A",
         "company_id" : 1,
@@ -80,10 +82,17 @@ async fn it_updates_user_by_id() {
 async fn it_gets_all_users() {
     let api = setup();
 
-    let response = api.user().get_all().await;
+    let options = GetAllOptions {
+        params: Some(vec![(("user_type".into(), "A".into()))]),
+    };
 
+    let response = api.user().get_all(options).await;
     match response {
-        Ok(_) => assert!(true),
+        Ok(mut value) => {
+            let users_value = value.get_mut("users").cloned().unwrap();
+            let users: Vec<User> = serde_json::from_value(users_value).unwrap();
+            assert!(users.len() > 0)
+        }
         Err(_) => assert!(false),
     }
 }

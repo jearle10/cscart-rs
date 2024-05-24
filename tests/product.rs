@@ -1,4 +1,4 @@
-use cscart_rs::types::Product;
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
@@ -70,7 +70,7 @@ async fn it_updates_product_by_id() {
 async fn it_gets_all_products() {
     let api = setup();
 
-    let response = api.product().get_all().await;
+    let response = api.product().get_all(GetAllOptions::default()).await;
     let data = response.unwrap().get("products").unwrap().to_owned();
     let products: Vec<Product> = serde_json::from_value(data).unwrap();
     assert_ne!(products.is_empty(), true);

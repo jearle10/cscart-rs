@@ -7,9 +7,9 @@
 //!
 //!  # Example
 //! ```
+//! use cscart_rs::prelude::*;
 //! use cscart_rs::Client;
 //! use serde_json::Value;
-//! use std::error::Error;
 //! use anyhow;
 //!
 //! async fn get_categories() -> anyhow::Result<Value> {
@@ -20,17 +20,24 @@
 //!
 //!     let categories = client
 //!         .category()
-//!         .get_all().await;
+//!         .get_all(GetAllOptions::default()).await;
 //!
 //!     categories
 //! }
 //! ```
 
-mod crud;
+mod handler;
 mod request;
 mod service;
-pub mod types;
+mod types;
 mod utils;
+
+pub mod prelude {
+    pub use crate::service::*;
+    pub use crate::types::*;
+}
+
+use prelude::*;
 
 /// Configure an api client to perform requests
 pub struct Client {
@@ -70,228 +77,203 @@ impl Client {
         self
     }
 
-    pub fn block(&self) -> service::Service {
-        service::Service::new()
+    pub fn block(&self) -> Service {
+        Service::with_resource(Resource::Blocks)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/blocks")
             .build()
     }
 
-    pub fn cart(&self) -> service::Service {
-        service::Service::new()
+    pub fn cart(&self) -> Service {
+        Service::with_resource(Resource::Cart)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/carts")
             .build()
     }
 
-    pub fn call_request(&self) -> service::Service {
-        service::Service::new()
+    pub fn call_request(&self) -> Service {
+        Service::with_resource(Resource::CallRequest)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/call_requests")
             .build()
     }
 
-    pub fn category(&self) -> service::Service {
-        service::Service::new()
+    pub fn category(&self) -> Service {
+        Service::with_resource(Resource::Category)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/categories")
             .build()
     }
 
-    pub fn discussion(&self) -> service::Service {
-        service::Service::new()
+    pub fn discussion(&self) -> Service {
+        Service::with_resource(Resource::Discussion)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/discussions")
             .build()
     }
 
-    pub fn language(&self) -> service::Service {
-        service::Service::new()
+    pub fn language(&self) -> Service {
+        Service::with_resource(Resource::Languages)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/languages")
             .build()
     }
 
-    pub fn langvars(&self) -> service::Service {
-        service::Service::new()
+    pub fn langvars(&self) -> Service {
+        Service::with_resource(Resource::Langvars)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/langvars")
             .build()
     }
 
-    pub fn order(&self) -> service::Service {
-        service::Service::new()
+    pub fn order(&self) -> Service {
+        Service::with_resource(Resource::Order)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/orders")
             .build()
     }
 
-    pub fn page(&self) -> service::Service {
-        service::Service::new()
+    pub fn page(&self) -> Service {
+        Service::with_resource(Resource::Pages)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/pages")
             .build()
     }
 
-    pub fn payment_method(&self) -> service::Service {
-        service::Service::new()
+    pub fn payment_method(&self) -> Service {
+        Service::with_resource(Resource::PaymentMethod)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/payments")
             .build()
     }
 
-    pub fn product(&self) -> service::Service {
-        service::Service::new()
+    pub fn product(&self) -> Service {
+        Service::with_resource(Resource::Product)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/products")
             .build()
     }
 
-    pub fn product_feature(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_feature(&self) -> Service {
+        Service::with_resource(Resource::ProductFeature)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/features")
             .build()
     }
 
-    pub fn product_variation(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_variation(&self) -> Service {
+        Service::with_resource(Resource::ProductVariation)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/product_variation")
             .build()
     }
 
-    pub fn product_variation_group(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_variation_group(&self) -> Service {
+        Service::with_resource(Resource::ProductVariationGroup)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/product_variation_groups")
             .build()
     }
 
-    pub fn product_option(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option(&self) -> Service {
+        Service::with_resource(Resource::ProductOption)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/options")
             .build()
     }
 
-    pub fn product_option_combination(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option_combination(&self) -> Service {
+        Service::with_resource(Resource::ProductOptionCombination)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/combinations")
             .build()
     }
 
-    pub fn product_option_exceptions(&self) -> service::Service {
-        service::Service::new()
+    pub fn product_option_exceptions(&self) -> Service {
+        Service::with_resource(Resource::ProductException)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/exceptions")
             .build()
     }
 
-    pub fn settings(&self) -> service::Service {
-        service::Service::new()
+    pub fn settings(&self) -> Service {
+        Service::with_resource(Resource::Settings)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/settings")
             .build()
     }
 
-    pub fn shipment(&self) -> service::Service {
-        service::Service::new()
+    pub fn shipment(&self) -> Service {
+        Service::with_resource(Resource::Shipment)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/shipments")
             .build()
     }
 
-    pub fn shipment_method(&self) -> service::Service {
-        service::Service::new()
+    pub fn shipment_method(&self) -> Service {
+        Service::with_resource(Resource::ShipmentMethod)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/shippings")
             .build()
     }
 
-    pub fn status(&self) -> service::Service {
-        service::Service::new()
+    pub fn status(&self) -> Service {
+        Service::with_resource(Resource::Status)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/statuses")
             .build()
     }
 
-    pub fn tax(&self) -> service::Service {
-        service::Service::new()
+    pub fn tax(&self) -> Service {
+        Service::with_resource(Resource::Tax)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/taxes")
             .build()
     }
 
-    pub fn user(&self) -> service::Service {
-        service::Service::new()
+    pub fn user(&self) -> Service {
+        Service::with_resource(Resource::User)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/users")
             .build()
     }
 
-    pub fn user_group(&self) -> service::Service {
-        service::Service::new()
+    pub fn user_group(&self) -> Service {
+        Service::with_resource(Resource::UserGroups)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/usergroups")
             .build()
     }
 
-    pub fn vendor(&self) -> service::Service {
-        service::Service::new()
+    pub fn vendor(&self) -> Service {
+        Service::with_resource(Resource::Vendor)
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .path("/api/2.0/vendors")
             .build()
     }
 
@@ -330,26 +312,5 @@ mod tests {
         assert_eq!(client.get_username(), username);
         assert_eq!(client.get_api_key(), api_key);
         assert_eq!(client.get_host(), host);
-    }
-
-    #[test]
-    fn resource_enum() {
-        enum Resource {
-            PRODUCT,
-            CART,
-        }
-
-        impl Resource {
-            fn to_string(&self) -> String {
-                match self {
-                    Self::PRODUCT => String::from("products"),
-                    Self::CART => String::from("carts"),
-                }
-            }
-        }
-
-        let resource = Resource::PRODUCT.to_string();
-
-        println!("{}", resource)
     }
 }
