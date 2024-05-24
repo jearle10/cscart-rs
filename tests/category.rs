@@ -1,3 +1,4 @@
+use cscart_rs::prelude::*;
 use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
@@ -76,7 +77,7 @@ async fn it_updates_category_by_id() {
 async fn it_gets_all_categories() {
     let api = setup();
 
-    let categories = api.category().get_all().await;
+    let categories = api.category().get_all(GetAllOptions::default()).await;
 
     match categories {
         Ok(_) => assert!(true),

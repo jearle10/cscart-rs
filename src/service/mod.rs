@@ -1,5 +1,5 @@
-use crate::crud;
-use crate::crud::HandlerBuilder;
+use crate::handler;
+use crate::handler::HandlerBuilder;
 use crate::prelude::*;
 use serde_json::Value;
 
@@ -9,8 +9,8 @@ pub struct Service {
     pub(crate) api_key: String,
     pub(crate) username: String,
     pub(crate) resource: Resource,
-    pub(crate) entity: String, // sub-entity e.g /api/2.0/categories/<id>/products
-    pub(crate) params: Vec<(String, String)>, //  Break the path into path , entity and sub_entity methods
+    pub(crate) entity: String, // sub-entity e.g /api/2.0/categories/<id>/products//  Break the path into path , entity and sub_entity methods
+    pub(crate) params: Vec<(String, String)>,
 }
 
 pub struct ServiceBuilder {
@@ -36,11 +36,6 @@ impl ServiceBuilder {
         self
     }
 
-    pub fn param(mut self, param: (&str, &str)) -> Self {
-        self.params.push((param.0.into(), param.1.into()));
-        self
-    }
-
     pub fn build(self) -> Service {
         Service {
             host: self.host,
@@ -48,7 +43,7 @@ impl ServiceBuilder {
             username: self.username,
             entity: "".to_string(),
             resource: self.resource,
-            params: self.params,
+            params: vec![],
         }
     }
 }
@@ -60,13 +55,13 @@ impl Service {
             api_key: "".to_string(),
             username: "".to_string(),
             entity: "".to_string(),
-            params: Vec::new(),
+            params: vec![],
             resource,
         }
     }
 
     fn set_handler_credentials(&self) -> HandlerBuilder {
-        crud::Handler::new()
+        handler::Handler::new()
             .host(self.host.as_str())
             .username(self.username.as_str())
             .api_key(self.api_key.as_str())
@@ -81,13 +76,13 @@ impl Service {
         Ok(rsp)
     }
 
-    pub async fn get_all(&self) -> anyhow::Result<Value> {
+    pub async fn get_all(&self, options: GetAllOptions) -> anyhow::Result<Value> {
+        // This method sometimes requires mandatory params to be provided (depending on resource e.g User requires user_type)
         let handler = self
             .set_handler_credentials()
             .path(self.resource.path().to_string())
-            .set_query_params(&self.params)
+            .set_query_params(options.params())
             .build();
-
         let rsp = handler.read().await?;
         Ok(rsp)
     }
@@ -130,5 +125,9 @@ impl Service {
 
         let rsp = handler.read().await?;
         Ok(rsp)
+    }
+
+    pub async fn send() -> anyhow::Result<Value> {
+        Ok(Value::Null)
     }
 }

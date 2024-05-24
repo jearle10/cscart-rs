@@ -8,6 +8,7 @@ pub struct Handler {
     host: String,
     path: String,
     query_params: Vec<(String, String)>,
+    api: Option<request::Request>,
 }
 
 pub struct HandlerBuilder {
@@ -16,6 +17,7 @@ pub struct HandlerBuilder {
     host: String,
     path: String,
     query_params: Vec<(String, String)>,
+    api: Option<request::Request>,
 }
 
 impl HandlerBuilder {
@@ -39,11 +41,6 @@ impl HandlerBuilder {
         self
     }
 
-    pub(crate) fn query_param(mut self, param: (String, String)) -> Self {
-        self.query_params.push(param);
-        self
-    }
-
     pub(crate) fn set_query_params(mut self, params: &[(String, String)]) -> Self {
         self.query_params = Vec::new();
         for param in params {
@@ -59,6 +56,7 @@ impl HandlerBuilder {
             host: self.host,
             path: self.path,
             query_params: self.query_params,
+            api: self.api,
         }
     }
 }
@@ -71,6 +69,7 @@ impl Handler {
             host: "".to_string(),
             path: "".to_string(),
             query_params: Vec::new(),
+            api: None,
         }
     }
 
@@ -135,6 +134,7 @@ impl Handler {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::prelude::*;
     use dotenv::dotenv;
 
     fn setup() -> Handler {

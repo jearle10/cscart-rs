@@ -35,7 +35,7 @@ async fn it_gets_an_order_by_id() {
 #[tokio::test]
 async fn it_gets_all_orders() {
     let api = setup();
-    let response = api.order().get_all().await;
+    let response = api.order().get_all(GetAllOptions::default()).await;
 
     match response.ok() {
         Some(mut value) => {

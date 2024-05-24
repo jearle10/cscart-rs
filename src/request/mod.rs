@@ -1,6 +1,17 @@
 use serde_json::Value;
 
-// Need to create a request interface to decouple from 3rd party http clients
+pub struct Auth {
+    username: String,
+    api_key: String,
+}
+
+pub trait HttpClient {
+    async fn get(url: String, auth: Auth, params: &[(String, String)]) -> anyhow::Result<String>;
+    async fn put(url: String, auth: Auth, body: Value) -> anyhow::Result<String>;
+    async fn post(url: String, auth: Auth, body: Value) -> anyhow::Result<String>;
+    async fn delete(url: String, auth: Auth, body: Value) -> anyhow::Result<String>;
+}
+
 #[derive(Debug)]
 pub struct Request {
     host: String,

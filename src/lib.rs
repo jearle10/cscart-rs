@@ -7,9 +7,9 @@
 //!
 //!  # Example
 //! ```
+//! use cscart_rs::prelude::*;
 //! use cscart_rs::Client;
 //! use serde_json::Value;
-//! use std::error::Error;
 //! use anyhow;
 //!
 //! async fn get_categories() -> anyhow::Result<Value> {
@@ -20,13 +20,13 @@
 //!
 //!     let categories = client
 //!         .category()
-//!         .get_all().await;
+//!         .get_all(GetAllOptions::default()).await;
 //!
 //!     categories
 //! }
 //! ```
 
-mod crud;
+mod handler;
 mod request;
 mod service;
 mod types;
@@ -258,7 +258,6 @@ impl Client {
             .host(self.host.as_str())
             .api_key(self.api_key.as_str())
             .username(self.username.as_str())
-            .param(("user_type", "A"))
             .build()
     }
 
@@ -313,26 +312,5 @@ mod tests {
         assert_eq!(client.get_username(), username);
         assert_eq!(client.get_api_key(), api_key);
         assert_eq!(client.get_host(), host);
-    }
-
-    #[test]
-    fn resource_enum() {
-        enum Resource {
-            PRODUCT,
-            CART,
-        }
-
-        impl Resource {
-            fn to_string(&self) -> String {
-                match self {
-                    Self::PRODUCT => String::from("products"),
-                    Self::CART => String::from("carts"),
-                }
-            }
-        }
-
-        let resource = Resource::PRODUCT.to_string();
-
-        println!("{}", resource)
     }
 }
