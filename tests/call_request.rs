@@ -9,7 +9,7 @@ async fn it_gets_all_call_requests() {
     match response {
         Ok(mut data) => {
             let value = data.get_mut("call_requests").cloned().unwrap();
-            let call_requests: Vec<CallRequest> = serde_json::from_value(value).unwrap();
+            let _call_requests: Vec<CallRequest> = serde_json::from_value(value).unwrap();
         }
         Err(e) => {
             println!("{}", e);

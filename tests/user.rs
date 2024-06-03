@@ -17,7 +17,7 @@ async fn it_creates_and_deletes_a_user() {
     let create_response = api.user().create(test_user).await;
 
     let data = create_response.unwrap();
-    let id = data["user_id"].as_i64().unwrap();
+    let _id = data["user_id"].as_i64().unwrap();
 
     // let delete_response = api.user()
     //     .delete_by_id(id.to_string().as_str())
@@ -35,7 +35,7 @@ async fn it_gets_user_by_id() {
             let user: User = serde_json::from_value(value).unwrap();
             assert_eq!(user.user_id, Some("1".to_string()));
         }
-        Err(e) => assert!(false),
+        Err(_e) => assert!(false),
     };
 }
 

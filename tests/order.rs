@@ -1,6 +1,6 @@
 use cscart_rs::prelude::*;
-use cscart_rs::Client;
-use dotenv::dotenv;
+
+
 use serde_json::json;
 
 #[tokio::test]
