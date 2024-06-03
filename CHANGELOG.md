@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.7.0](https://github.com/jearle10/cscart-rs/compare/v0.6.0...v0.7.0) - 2024-06-03
+
+### Added
+- Remaining types added
+
+### Other
+- udpate readme
+- Cargo fix
+- Update README.md
+- Internal refactoring
+
 ## [0.6.0](https://github.com/jearle10/cscart-rs/compare/v0.5.6...v0.6.0) - 2024-05-24
 
 ### Other
