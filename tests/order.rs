@@ -3,23 +3,9 @@ use cscart_rs::Client;
 use dotenv::dotenv;
 use serde_json::json;
 
-fn setup() -> Client {
-    dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
-
-    let username = std::env::var("CSCART_USERNAME").expect("No username found");
-
-    let host = std::env::var("CSCART_HOST").expect("No host found");
-
-    Client::new()
-        .host(&host)
-        .username(&username)
-        .api_key(&api_key)
-}
-
 #[tokio::test]
 async fn it_gets_an_order_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
     let response = dbg!(api.order().get_by_id("355").await);
 
     match response.ok() {
@@ -34,7 +20,7 @@ async fn it_gets_an_order_by_id() {
 
 #[tokio::test]
 async fn it_gets_all_orders() {
-    let api = setup();
+    let api = test_utils::setup();
     let response = api.order().get_all(GetAllOptions::default()).await;
 
     match response.ok() {
@@ -49,7 +35,7 @@ async fn it_gets_all_orders() {
 
 #[tokio::test]
 async fn creates_an_order() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let new_order = json!({
         "user_id": 3,
@@ -73,7 +59,7 @@ async fn creates_an_order() {
 
 #[tokio::test]
 async fn updates_an_order() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let new_order = json!({
         "user_id": 5,
@@ -127,7 +113,7 @@ async fn updates_an_order() {
 
 #[tokio::test]
 async fn deletes_an_order() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let new_order = json!({
         "user_id": 5,

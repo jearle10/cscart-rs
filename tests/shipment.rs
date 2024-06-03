@@ -1,1 +1,19 @@
+use cscart_rs::prelude::*;
+#[tokio::test]
+async fn it_gets_all_shipments() {
+    let api = test_utils::setup();
 
+    let response = api.shipment().get_all(GetAllOptions::default()).await;
+
+    match response {
+        Ok(mut data) => {
+            let value = data.get_mut("shipments").cloned().unwrap();
+            serde_json::from_value::<Vec<Shipment>>(value).unwrap();
+            assert!(true)
+        }
+        Err(e) => {
+            println!("{}", e);
+            assert!(false)
+        }
+    }
+}

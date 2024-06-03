@@ -1,23 +1,9 @@
 use cscart_rs::prelude::*;
-use cscart_rs::Client;
-use dotenv::dotenv;
 use serde_json::json;
-
-fn setup() -> Client {
-    dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
-    let username = std::env::var("CSCART_USERNAME").expect("No username found");
-    let host = std::env::var("CSCART_HOST").expect("No host found");
-
-    Client::new()
-        .host(&host)
-        .username(&username)
-        .api_key(&api_key)
-}
 
 #[tokio::test]
 async fn it_creates_a_product() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let test_data = json!({
         "product" : "e2e testing",
@@ -40,7 +26,7 @@ async fn it_creates_a_product() {
 
 #[tokio::test]
 async fn it_gets_product_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let response = api.product().get_by_id("12").await;
     let product: Product = serde_json::from_value(dbg!(response.unwrap())).unwrap();
@@ -49,7 +35,7 @@ async fn it_gets_product_by_id() {
 
 #[tokio::test]
 async fn it_updates_product_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let product = json!({
         "name" : "e2e testing"
@@ -68,7 +54,7 @@ async fn it_updates_product_by_id() {
 
 #[tokio::test]
 async fn it_gets_all_products() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let response = api.product().get_all(GetAllOptions::default()).await;
     let data = response.unwrap().get("products").unwrap().to_owned();

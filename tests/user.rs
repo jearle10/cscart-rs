@@ -1,25 +1,9 @@
 use cscart_rs::prelude::*;
-use cscart_rs::Client;
-use dotenv::dotenv;
 use uuid::Uuid;
-
-fn setup() -> Client {
-    dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
-
-    let username = std::env::var("CSCART_USERNAME").expect("No username found");
-
-    let host = std::env::var("CSCART_HOST").expect("No host found");
-
-    Client::new()
-        .host(&host)
-        .username(&username)
-        .api_key(&api_key)
-}
 
 #[tokio::test]
 async fn it_creates_and_deletes_a_user() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let guuid = Uuid::new_v4();
 
@@ -42,7 +26,7 @@ async fn it_creates_and_deletes_a_user() {
 
 #[tokio::test]
 async fn it_gets_user_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let response = api.user().get_by_id("1").await;
 
@@ -57,7 +41,7 @@ async fn it_gets_user_by_id() {
 
 #[tokio::test]
 async fn it_updates_user_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let user = serde_json::json!({
         "email" : "jianearle93@googlemail.com",
@@ -80,7 +64,7 @@ async fn it_updates_user_by_id() {
 
 #[tokio::test]
 async fn it_gets_all_users() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let options = GetAllOptions {
         params: Some(vec![(("user_type".into(), "A".into()))]),

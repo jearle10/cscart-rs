@@ -19,9 +19,8 @@ impl ServiceState for OnlyAuth {}
 pub struct Service<S: ServiceState> {
     pub _marker: PhantomData<S>,
     pub(crate) host: Option<String>,
-    pub(crate) auth: Option<Auth>,
-    pub(crate) resource: Option<Resource>,
-    pub(crate) entity: Option<String>, // sub-entity e.g /api/2.0/categories/<id>/products//  Break the path into path , entity and sub_entity methods
+    pub(crate) auth: Option<ServiceAuth>,
+    pub(crate) resource: Option<Resource>, // sub-entity e.g /api/2.0/categories/<id>/products//  Break the path into path , entity and sub_entity methods
     pub(crate) params: Option<Vec<(String, String)>>,
 }
 
@@ -32,7 +31,6 @@ impl Service<Unauthenticated> {
             host: None,
             auth: None,
             resource: Some(resource),
-            entity: None,
             params: None,
         }
     }
@@ -45,31 +43,28 @@ impl Service<Unauthenticated> {
             host: Some(host.into()),
             auth: None,
             resource: self.resource,
-            entity: None,
             params: None,
         }
     }
 
-    pub fn auth(self, auth: Auth) -> Service<OnlyAuth> {
+    pub fn auth(self, auth: ServiceAuth) -> Service<OnlyAuth> {
         Service::<OnlyAuth> {
             _marker: PhantomData,
             host: None,
             auth: Some(auth),
             resource: self.resource,
-            entity: None,
             params: None,
         }
     }
 }
 
 impl Service<OnlyHost> {
-    pub fn auth(self, auth: Auth) -> Service<Authenticated> {
+    pub fn auth(self, auth: ServiceAuth) -> Service<Authenticated> {
         Service::<Authenticated> {
             _marker: PhantomData,
             host: self.host,
             auth: Some(auth),
             resource: self.resource,
-            entity: None,
             params: None,
         }
     }
@@ -82,7 +77,6 @@ impl Service<OnlyAuth> {
             host: Some(host.into()),
             auth: self.auth,
             resource: self.resource,
-            entity: None,
             params: None,
         }
     }

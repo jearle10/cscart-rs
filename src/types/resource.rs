@@ -1,5 +1,6 @@
 #[derive(Clone, Debug)]
 pub enum Resource {
+    Auth,
     Blocks,
     Cart,
     CallRequest,
@@ -33,6 +34,7 @@ pub enum Resource {
 impl Resource {
     pub fn path(&self) -> &str {
         match self {
+            Self::Auth => "/api/2.0/auth",
             Self::Cart => "/api/2.0/carts",
             Self::CallRequest => "/api/2.0/call_requests",
             Self::Blocks => "/api/2.0/blocks",

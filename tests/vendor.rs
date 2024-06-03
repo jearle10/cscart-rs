@@ -1,24 +1,9 @@
-use cscart_rs::{prelude::GetAllOptions, Client};
-use dotenv::dotenv;
+use cscart_rs::prelude::*;
 use serde_json::json;
-
-fn setup() -> Client {
-    dotenv().ok(); // For local testing
-    let api_key = std::env::var("CSCART_API_KEY").expect("No api key found");
-
-    let username = std::env::var("CSCART_USERNAME").expect("No username found");
-
-    let host = std::env::var("CSCART_HOST").expect("No host found");
-
-    Client::new()
-        .host(&host)
-        .username(&username)
-        .api_key(&api_key)
-}
 
 #[tokio::test]
 async fn it_creates_a_vendor() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let test_vendor = json!({
         "company" : "e2e testin",
@@ -45,7 +30,7 @@ async fn it_creates_a_vendor() {
 
 #[tokio::test]
 async fn it_gets_vendor_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let response = api.vendor().get_by_id("2").await;
 
@@ -60,7 +45,7 @@ async fn it_gets_vendor_by_id() {
 
 #[tokio::test]
 async fn it_updates_vendor_by_id() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let vendor = json!({
         "name" : "Testing Testing 123"
@@ -79,14 +64,17 @@ async fn it_updates_vendor_by_id() {
 
 #[tokio::test]
 async fn it_gets_all_vendors() {
-    let api = setup();
+    let api = test_utils::setup();
 
     let response = api.vendor().get_all(GetAllOptions::default()).await;
 
-    println!("{:?}", response);
-
     match response {
-        Ok(_) => assert!(true),
+        Ok(mut value) => {
+            dbg!(&value);
+            let vendors_value = value.get_mut("vendors").cloned().unwrap();
+            let users: Vec<Vendor> = serde_json::from_value(vendors_value).unwrap();
+            assert!(users.len() > 0)
+        }
         Err(_) => assert!(false),
     }
 }
