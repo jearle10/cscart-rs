@@ -5,7 +5,6 @@
 ### About
 A rust based sdk for e-commerce platform CS cart multivendor (https://www.cs-cart.com/)
 
-NOTE: This is not yet stable and is a work in progress!
 
 ### Getting started
 ```rust
@@ -70,34 +69,17 @@ async fn create_category() -> anyhow::Result<Value> {
 
 ### Features
 
-All entities from the CScart documentation are supported (https://docs.cs-cart.com/latest/developer_guide/api/index.html)
+All entities from the CScart documentation are supported<sup>*</sup> (https://docs.cs-cart.com/latest/developer_guide/api/index.html)
 
-Entities that have been tested are tracked below (work in progress, so still may be some bugs untested services...)
+Typed API responses which are exported from the prelude, you can use these types optionally otherwise a `serde_json::Value` is returned
 
-| Entity                     |   Tested    | 
-| :---:                      |:-----------:|
-| cart                       |     Yes     |      
-| call requests              |     Yes     |            
-| categories                 |     Yes     |              
-| discussions                |     No      |                    
-| languages                  |     No      |                    
-| langvars                   |     No      |                    
-| orders                     |     Yes     |                    
-| pages                      |     No      |                    
-| payment methods            |     Yes     |                    
-| products                   |     Yes     |                    
-| product features           |     No      |                            
-| product variations         |     No      |                    
-| product variation group    |     No      |                    
-| product options            |     No      |                    
-| product option combination |     No      |                    
-| product option exception   |     No      |                     
-| settings                   | In progress |                    
-| shipments                  | In progress |                     
-| shipping methods           | In progress |                    
-| statuses                   | In progress |                    
-| stores                     |     No      |                    
-| taxes                      | In progress |                    
-| users                      |     Yes     |                    
-| user groups                | In progress |                    
-| vendors                    |     Yes     |
+The following product services are not supported:
+- product variation group                    
+- product options                                
+- product option combination                     
+- product option exception 
+
+
+### Contributing
+
+Feel free to open a PR or open issues / bugs if you have features changes you want to discuss.
