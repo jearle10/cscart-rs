@@ -8,7 +8,6 @@ pub struct Handler {
     host: String,
     path: String,
     query_params: Vec<(String, String)>,
-    api: Option<request::Request>,
 }
 
 pub struct HandlerBuilder {
@@ -17,7 +16,6 @@ pub struct HandlerBuilder {
     host: String,
     path: String,
     query_params: Vec<(String, String)>,
-    api: Option<request::Request>,
 }
 
 impl HandlerBuilder {
@@ -59,7 +57,6 @@ impl HandlerBuilder {
             host: self.host,
             path: self.path,
             query_params: self.query_params,
-            api: self.api,
         }
     }
 }
@@ -72,7 +69,6 @@ impl Handler {
             host: "".to_string(),
             path: "".to_string(),
             query_params: Vec::new(),
-            api: None,
         }
     }
 

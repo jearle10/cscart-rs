@@ -33,12 +33,18 @@ mod types;
 mod utils;
 
 pub mod prelude {
+    pub use crate::methods::*;
     pub use crate::request::Auth as ServiceAuth;
+    pub use crate::service::state::*;
     pub use crate::service::*;
     pub use crate::types::*;
     pub use crate::utils::test_utils;
 }
 
+use auth_service::AuthService;
+use block_service::BlockService;
+use config::ServiceConfig;
+use order_service::OrderService;
 use prelude::*;
 
 /// Configure an api client to perform requests
@@ -79,16 +85,18 @@ impl Client {
         self
     }
 
-    pub fn auth(&self) -> Service<Authenticated> {
-        Service::<Unauthenticated>::with_resource(Resource::Auth)
+    pub fn auth(&self) -> AuthService {
+        let config = ServiceConfig::with_resource(Resource::Auth)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        AuthService::with_config(config)
     }
 
-    pub fn block(&self) -> Service<Authenticated> {
-        Service::<Unauthenticated>::with_resource(Resource::Blocks)
+    pub fn block(&self) -> BlockService {
+        let config = ServiceConfig::with_resource(Resource::Blocks)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        BlockService::with_config(config)
     }
 
     pub fn cart(&self) -> Service<Authenticated> {
@@ -127,10 +135,11 @@ impl Client {
             .auth(ServiceAuth::from(&self.username, &self.api_key))
     }
 
-    pub fn order(&self) -> Service<Authenticated> {
-        Service::with_resource(Resource::Order)
+    pub fn order(&self) -> OrderService {
+        let config = ServiceConfig::with_resource(Resource::Order)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        OrderService::with_config(config)
     }
 
     pub fn page(&self) -> Service<Authenticated> {

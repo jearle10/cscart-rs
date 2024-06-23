@@ -1,22 +1,19 @@
+pub mod auth_service;
+pub mod block_service;
+pub mod config;
+pub mod order_service;
+#[macro_use]
+pub mod methods;
+pub mod state;
+
 use crate::handler::HandlerBuilder;
 use crate::handler::{self};
 use crate::prelude::*;
 use serde_json::Value;
+use state::*;
 use std::marker::PhantomData;
 
-pub struct Unauthenticated;
-pub struct OnlyHost;
-pub struct OnlyAuth;
-pub struct Authenticated;
-
-pub trait ServiceState {}
-
-impl ServiceState for Unauthenticated {}
-impl ServiceState for Authenticated {}
-impl ServiceState for OnlyHost {}
-impl ServiceState for OnlyAuth {}
-
-pub struct Service<S: ServiceState> {
+pub struct Service<S: ServiceState = Unauthenticated> {
     pub _marker: PhantomData<S>,
     pub(crate) host: Option<String>,
     pub(crate) auth: Option<ServiceAuth>,

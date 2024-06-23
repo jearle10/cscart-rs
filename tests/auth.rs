@@ -11,14 +11,13 @@ async fn it_get_an_auth_link() {
     let response = api.auth().create(data).await;
 
     match response {
-        Ok(mut data) => {
+        Ok(data) => {
             dbg!(&data);
-            let auth_link = data.get_mut("link").cloned().unwrap().to_string();
-            assert!(auth_link.len() > 0)
+            assert!(data.link.len() > 0)
         }
         Err(e) => {
-            println!("{}", e);
-            assert!(false)
+            dbg!(e);
+            assert!(false);
         }
     }
 }

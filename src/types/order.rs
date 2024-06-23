@@ -1,8 +1,10 @@
+use crate::utils::serde_utils::deserialize_string_or_int_to_i32;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Order {
-    pub order_id: Option<String>,
+    #[serde(deserialize_with = "deserialize_string_or_int_to_i32")]
+    pub order_id: i32,
     pub issuer_id: Option<String>,
     pub user_id: Option<String>,
     pub is_parent_order: Option<String>,

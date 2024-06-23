@@ -1,6 +1,6 @@
 use serde_json::Value;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Auth {
     username: String,
     api_key: String,

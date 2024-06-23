@@ -2,6 +2,6 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Auth {
-    key: String,
-    link: String,
+    pub key: String,
+    pub link: String,
 }
