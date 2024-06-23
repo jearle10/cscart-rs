@@ -43,6 +43,7 @@ pub mod prelude {
 
 use auth_service::AuthService;
 use block_service::BlockService;
+use category_service::CategoryService;
 use config::ServiceConfig;
 use order_service::OrderService;
 use prelude::*;
@@ -111,10 +112,11 @@ impl Client {
             .auth(ServiceAuth::from(&self.username, &self.api_key))
     }
 
-    pub fn category(&self) -> Service<Authenticated> {
-        Service::with_resource(Resource::Category)
+    pub fn category(&self) -> CategoryService {
+        let config = ServiceConfig::with_resource(Resource::Category)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        CategoryService::with_config(config)
     }
 
     pub fn discussion(&self) -> Service<Authenticated> {

@@ -1,9 +1,8 @@
 use cscart_rs::prelude::*;
 use serde_json::json;
 
-
 #[tokio::test]
-async fn it_creates_a_category() {
+async fn it_creates_a_category() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let test_data = json!({
@@ -11,35 +10,20 @@ async fn it_creates_a_category() {
         "company_id" : 1
     });
 
-    let category = api.category().create(test_data).await;
-
-    match category {
-        Ok(mut data) => {
-            assert!(data.get_mut("category_id").cloned().unwrap().is_number())
-        }
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    let response = api.category().create(test_data).await;
+    assert!(response.is_ok());
+    assert_eq!(response?.category, "e2e testing".to_string());
+    Ok(())
 }
 
 #[tokio::test]
-async fn it_gets_category_by_id() {
+async fn it_gets_category_by_id() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let response = api.category().get_by_id("210").await;
-
-    match response {
-        Ok(data) => {
-            let category: Category = serde_json::from_value(data).unwrap();
-            assert_eq!(category.category_id, Some("210".into()))
-        }
-        Err(e) => {
-            dbg!(e);
-            assert!(false)
-        }
-    }
+    assert!(response.is_ok());
+    assert_eq!(response?.category_id, Some("210".into()));
+    Ok(())
 }
 
 #[tokio::test]
@@ -68,31 +52,16 @@ async fn it_gets_all_categories() {
     let api = test_utils::setup();
 
     let categories = api.category().get_all(GetAllOptions::default()).await;
-
-    match categories {
-        Ok(mut data) => {
-            dbg!(&data);
-            let value = data.get_mut("categories").cloned().unwrap();
-            let categories = serde_json::from_value::<Vec<Category>>(value).unwrap();
-            assert!(categories.len() > 0)
-        }
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    assert!(categories.is_ok());
+    assert!(categories.unwrap().len() > 0);
 }
 
 #[tokio::test]
-async fn it_gets_products_in_category() {
+async fn it_gets_products_in_category() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
-
-    let categories = api.category().get_all_entity("210", "products").await;
-
-    println!("{:#?}", categories);
-
-    match categories {
-        Ok(_) => assert!(true),
-        Err(_) => assert!(false),
-    }
+    let response = api.category().get_all_sub_entity("255", "products").await;
+    dbg!(&response);
+    assert!(response.is_ok());
+    assert!(response?.products.len() > 0);
+    Ok(())
 }

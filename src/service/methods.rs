@@ -174,3 +174,34 @@ macro_rules! impl_delete_by_id_method {
         }
     };
 }
+
+#[macro_export]
+macro_rules! impl_get_all_entity_method {
+    ($service:ident, $return_type:ident) => {
+        impl GetAllSubResource for $service {
+            type Response = $return_type;
+            async fn get_all_sub_entity<T: Into<String>>(
+                &self,
+                id: T,
+                entity: T,
+            ) -> anyhow::Result<Self::Response> {
+                let handler = crate::handler::Handler::new()
+                    .host(&self.config.host())
+                    .username(self.config.auth().username())
+                    .api_key(self.config.auth().api_key())
+                    .path(format!(
+                        "{}/{}/{}",
+                        self.config.resource.as_ref().unwrap().path(),
+                        id.into(),
+                        entity.into()
+                    ))
+                    .build();
+
+                let response_value = handler.read().await?;
+                dbg!(&response_value);
+                let response: $return_type = serde_json::from_value(response_value)?;
+                Ok(response)
+            }
+        }
+    };
+}
