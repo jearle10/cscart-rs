@@ -11,8 +11,8 @@ async fn it_creates_a_category() -> Result<(), Box<dyn std::error::Error>> {
     });
 
     let response = api.category().create(test_data).await;
-    assert!(response.is_ok());
-    assert_eq!(response?.category, "e2e testing".to_string());
+    dbg!(&response);
+    assert!(response.is_ok_and(|x| x.category_id > 0));
     Ok(())
 }
 
@@ -27,7 +27,7 @@ async fn it_gets_category_by_id() -> Result<(), Box<dyn std::error::Error>> {
 }
 
 #[tokio::test]
-async fn it_updates_category_by_id() {
+async fn it_updates_category_by_id() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let category = json!({
@@ -36,24 +36,19 @@ async fn it_updates_category_by_id() {
         "status" : "A"
     });
 
-    let categories = api.category().update_by_id("210", category).await;
-
-    match categories {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    let response = api.category().update_by_id("210", category).await;
+    dbg!(&response);
+    assert!(response.is_ok());
+    Ok(())
 }
 
 #[tokio::test]
 async fn it_gets_all_categories() {
     let api = test_utils::setup();
-
     let categories = api.category().get_all(GetAllOptions::default()).await;
+    dbg!(&categories);
     assert!(categories.is_ok());
-    assert!(categories.unwrap().len() > 0);
+    assert!(categories.unwrap().categories.len() > 0);
 }
 
 #[tokio::test]

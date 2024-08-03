@@ -11,8 +11,9 @@
 //! use cscart_rs::Client;
 //! use serde_json::Value;
 //! use anyhow;
+//! use cscart_rs::GetAllCategoryResponse;
 //!
-//! async fn get_categories() -> anyhow::Result<Value> {
+//! async fn get_categories() -> anyhow::Result<GetAllCategoryResponse> {
 //!     let client = Client::new()
 //!         .host("http://my-ecommerce-site.com")
 //!         .username("my-user-email@email.com")
@@ -44,6 +45,9 @@ pub mod prelude {
 use auth_service::AuthService;
 use block_service::BlockService;
 use category_service::CategoryService;
+pub use category_service::{
+    CreateCategoryResponse, GetAllCategoryResponse, GetAllProductsResponse, UpdateCategoryResponse,
+};
 use config::ServiceConfig;
 use order_service::OrderService;
 use prelude::*;

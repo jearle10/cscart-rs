@@ -1,15 +1,15 @@
+use auth_service::CreateAuthRequest;
 use cscart_rs::prelude::*;
 
 #[tokio::test]
 async fn it_get_an_auth_link() {
     let api = test_utils::setup();
 
-    let data = serde_json::json!({
-        "email": dbg!(std::env::var("CSCART_USERNAME").expect("No username found"))
-    });
+    let email = std::env::var("CSCART_USERNAME").expect("No username found");
+    let request = CreateAuthRequest { email };
 
-    let response = api.auth().create(data).await;
-
+    let response = api.auth().create(request).await;
+    dbg!(&response);
     match response {
         Ok(data) => {
             dbg!(&data);

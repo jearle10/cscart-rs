@@ -18,16 +18,29 @@ impl CategoryService {
     }
 }
 
-pub type GetAllCategoryResponse = Vec<Category>;
+#[derive(Deserialize, Debug)]
+pub struct GetAllCategoryResponse {
+    pub categories: Vec<Category>,
+}
 
 #[derive(Deserialize, Debug)]
-pub struct GetAllEntityResponse {
+pub struct GetAllProductsResponse {
     pub products: Vec<Product>,
 }
 
-impl_create_method!(CategoryService, Category);
+#[derive(Deserialize, Debug)]
+pub struct CreateCategoryResponse {
+    pub category_id: i32,
+}
+
+#[derive(Deserialize, Debug)]
+pub struct UpdateCategoryResponse {
+    pub category_id: String,
+}
+
+impl_create_method!(CategoryService, CreateCategoryResponse);
 impl_get_by_id_method!(CategoryService, Category);
 impl_get_all_method!(CategoryService, GetAllCategoryResponse);
-impl_update_by_id_method!(CategoryService, Value);
+impl_update_by_id_method!(CategoryService, UpdateCategoryResponse);
 impl_delete_by_id_method!(CategoryService, Value);
-impl_get_all_entity_method!(CategoryService, GetAllEntityResponse);
+impl_get_all_entity_method!(CategoryService, GetAllProductsResponse);
