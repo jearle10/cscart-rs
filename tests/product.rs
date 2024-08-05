@@ -15,49 +15,35 @@ async fn it_creates_a_product() {
     });
 
     let response = api.product().create(test_data).await;
-    match response {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    assert!(response.is_ok());
 }
 
 #[tokio::test]
-async fn it_gets_product_by_id() {
+async fn it_gets_product_by_id() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
-
-    let response = api.product().get_by_id("12").await;
-    let product: Product = serde_json::from_value(dbg!(response.unwrap())).unwrap();
-    assert_eq!(product.product_id, 12)
+    let product = api.product().get_by_id("12").await?;
+    assert_eq!(product.product_id, 12);
+    Ok(())
 }
 
 #[tokio::test]
-async fn it_updates_product_by_id() {
+async fn it_updates_product_by_id() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let product = json!({
         "name" : "e2e testing"
     });
 
-    let response = api.product().update_by_id("210", product).await;
-
-    match response {
-        Ok(_) => assert!(true),
-        Err(e) => {
-            println!("{}", e);
-            assert!(false)
-        }
-    }
+    let response = dbg!(api.product().update_by_id("12", product).await);
+    assert!(response.is_ok());
+    Ok(())
 }
 
 #[tokio::test]
-async fn it_gets_all_products() {
+async fn it_gets_all_products() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
-    let response = api.product().get_all(GetAllOptions::default()).await;
-    let data = response.unwrap().get("products").unwrap().to_owned();
-    let products: Vec<Product> = serde_json::from_value(data).unwrap();
-    assert_ne!(products.is_empty(), true);
+    let response = api.product().get_all(GetAllOptions::default()).await?;
+    assert_ne!(response.products.is_empty(), true);
+    Ok(())
 }

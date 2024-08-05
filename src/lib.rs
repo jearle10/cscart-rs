@@ -44,6 +44,7 @@ pub mod prelude {
 
 use auth_service::AuthService;
 use block_service::BlockService;
+use cart_service::CartService;
 use category_service::CategoryService;
 pub use category_service::{
     CreateCategoryResponse, GetAllCategoryResponse, GetAllProductsResponse, UpdateCategoryResponse,
@@ -51,6 +52,7 @@ pub use category_service::{
 use config::ServiceConfig;
 use order_service::OrderService;
 use prelude::*;
+use product_service::ProductService;
 
 /// Configure an api client to perform requests
 pub struct Client {
@@ -104,10 +106,11 @@ impl Client {
         BlockService::with_config(config)
     }
 
-    pub fn cart(&self) -> Service<Authenticated> {
-        Service::with_resource(Resource::Cart)
+    pub fn cart(&self) -> CartService {
+        let config = ServiceConfig::with_resource(Resource::Cart)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        CartService::with_config(config)
     }
 
     pub fn call_request(&self) -> Service<Authenticated> {
@@ -160,10 +163,11 @@ impl Client {
             .auth(ServiceAuth::from(&self.username, &self.api_key))
     }
 
-    pub fn product(&self) -> Service<Authenticated> {
-        Service::with_resource(Resource::Product)
+    pub fn product(&self) -> ProductService {
+        let config = ServiceConfig::with_resource(Resource::Product)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        ProductService::with_config(config)
     }
 
     pub fn product_feature(&self) -> Service<Authenticated> {
