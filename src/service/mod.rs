@@ -1,5 +1,6 @@
 pub mod auth_service;
 pub mod block_service;
+pub mod cart_service;
 pub mod category_service;
 pub mod config;
 pub mod order_service;
