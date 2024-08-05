@@ -6,7 +6,7 @@ async fn it_gets_cart_by_id() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let response = api.cart().get_by_id("11").await?;
-    let cart = dbg!(serde_json::from_value::<Cart>(response));
+    let cart = serde_json::from_value::<Cart>(response);
     assert!(cart.is_ok());
     Ok(())
 }

@@ -15,7 +15,7 @@ pub struct Cart {
     pub total: String,
     pub order_id: Option<String>,
     pub user_data: UserData,
-    pub products: Vec<CartProduct>,
+    pub products: Option<Vec<CartProduct>>,
 }
 
 #[derive(Deserialize, Serialize, Debug)]
