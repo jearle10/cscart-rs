@@ -14,7 +14,7 @@ pub struct Cart {
     pub cart_products: String,
     pub total: String,
     pub order_id: Option<String>,
-    pub user_data: UserData,
+    // pub user_data: UserData, // Can also be an array TODO custom deserializer
     pub products: Option<Vec<CartProduct>>,
 }
 
