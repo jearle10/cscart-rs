@@ -53,6 +53,7 @@ use config::ServiceConfig;
 use order_service::OrderService;
 use prelude::*;
 use product_service::ProductService;
+use vendor_service::VendorService;
 
 /// Configure an api client to perform requests
 pub struct Client {
@@ -224,10 +225,11 @@ impl Client {
             .auth(ServiceAuth::from(&self.username, &self.api_key))
     }
 
-    pub fn vendor(&self) -> Service<Authenticated> {
-        Service::with_resource(Resource::Vendor)
+    pub fn vendor(&self) -> VendorService {
+        let config = ServiceConfig::with_resource(Resource::Vendor)
             .host(self.host.as_str())
-            .auth(ServiceAuth::from(&self.username, &self.api_key))
+            .auth(ServiceAuth::from(&self.username, &self.api_key));
+        VendorService::with_config(config)
     }
 
     fn get_username(&self) -> &str {

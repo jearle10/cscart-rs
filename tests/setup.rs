@@ -9,7 +9,7 @@ fn api_credentials_exist() {
 
     let host = std::env::var("CSCART_HOST").expect("No host found");
 
-    assert_eq!(api_key.len() > 0, true);
-    assert_eq!(username.len() > 0, true);
-    assert_eq!(host.len() > 0, true);
+    assert!(!api_key.is_empty());
+    assert!(!username.is_empty());
+    assert!(!host.is_empty());
 }

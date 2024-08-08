@@ -75,7 +75,7 @@ async fn it_gets_all_users() {
         Ok(mut value) => {
             let users_value = value.get_mut("users").cloned().unwrap();
             let users: Vec<User> = serde_json::from_value(users_value).unwrap();
-            assert!(users.len() > 0)
+            assert!(!users.is_empty())
         }
         Err(_) => assert!(false),
     }

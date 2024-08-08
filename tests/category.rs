@@ -48,7 +48,7 @@ async fn it_gets_all_categories() {
     let categories = api.category().get_all(GetAllOptions::default()).await;
     dbg!(&categories);
     assert!(categories.is_ok());
-    assert!(categories.unwrap().categories.len() > 0);
+    assert!(!categories.unwrap().categories.is_empty());
 }
 
 #[tokio::test]
@@ -57,6 +57,6 @@ async fn it_gets_products_in_category() -> Result<(), Box<dyn std::error::Error>
     let response = api.category().get_all_sub_entity("255", "products").await;
     dbg!(&response);
     assert!(response.is_ok());
-    assert!(response?.products.len() > 0);
+    assert!(!response?.products.is_empty());
     Ok(())
 }

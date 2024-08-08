@@ -13,7 +13,7 @@ async fn it_get_an_auth_link() {
     match response {
         Ok(data) => {
             dbg!(&data);
-            assert!(data.link.len() > 0)
+            assert!(!data.link.is_empty())
         }
         Err(e) => {
             dbg!(e);

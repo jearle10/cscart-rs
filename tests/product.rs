@@ -44,6 +44,6 @@ async fn it_gets_all_products() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
     let response = api.product().get_all(GetAllOptions::default()).await?;
-    assert_ne!(response.products.is_empty(), true);
+    assert!(!response.products.is_empty());
     Ok(())
 }

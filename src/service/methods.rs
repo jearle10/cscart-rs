@@ -58,7 +58,7 @@ macro_rules! impl_create_method {
         impl CreateResource for $service {
             type Response = $return_type;
             async fn create(&self, data: serde_json::Value) -> anyhow::Result<Self::Response> {
-                let handler = crate::handler::Handler::new()
+                let handler = $crate::handler::Handler::new()
                     .host(&self.config.host())
                     .username(self.config.auth().username())
                     .api_key(self.config.auth().api_key())
@@ -79,7 +79,7 @@ macro_rules! impl_get_by_id_method {
         impl GetResourceById for $service {
             type Response = $return_type;
             async fn get_by_id<T: Into<String>>(&self, id: T) -> anyhow::Result<Self::Response> {
-                let handler = crate::handler::Handler::new()
+                let handler = $crate::handler::Handler::new()
                     .host(&self.config.host())
                     .username(self.config.auth().username())
                     .api_key(self.config.auth().api_key())
@@ -104,7 +104,7 @@ macro_rules! impl_get_all_method {
         impl GetAllResource for $service {
             type Response = $return_type;
             async fn get_all(&self, options: GetAllOptions) -> anyhow::Result<Self::Response> {
-                let handler = crate::handler::Handler::new()
+                let handler = $crate::handler::Handler::new()
                     .host(&self.config.host())
                     .username(self.config.auth().username())
                     .api_key(self.config.auth().api_key())
@@ -152,7 +152,7 @@ macro_rules! impl_update_by_id_method {
 #[macro_export]
 macro_rules! impl_delete_by_id_method {
     ($service:ident, $return_type:ident) => {
-        use crate::handler::Handler;
+        use $crate::handler::Handler;
         impl DeleteResource for $service {
             type Response = $return_type;
             async fn delete_by_id<T: Into<String>>(&self, id: T) -> anyhow::Result<Self::Response> {
@@ -185,7 +185,7 @@ macro_rules! impl_get_all_entity_method {
                 id: T,
                 entity: T,
             ) -> anyhow::Result<Self::Response> {
-                let handler = crate::handler::Handler::new()
+                let handler = $crate::handler::Handler::new()
                     .host(&self.config.host())
                     .username(self.config.auth().username())
                     .api_key(self.config.auth().api_key())

@@ -5,6 +5,7 @@ pub mod category_service;
 pub mod config;
 pub mod order_service;
 pub mod product_service;
+pub mod vendor_service;
 #[macro_use]
 pub mod methods;
 pub mod state;
