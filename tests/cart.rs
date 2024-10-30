@@ -13,7 +13,8 @@ async fn it_gets_cart_by_id() -> Result<(), Box<dyn std::error::Error>> {
 async fn it_gets_all_carts() -> Result<(), Box<dyn std::error::Error>> {
     let api = test_utils::setup();
 
-    let response = dbg!(api.cart().get_all(GetAllOptions::default()).await);
+    let response: Result<cart_service::GetAllCartResponse, anyhow::Error> =
+        dbg!(api.cart().get_all(GetAllOptions::default()).await);
     assert!(response.is_ok());
     Ok(())
 }
