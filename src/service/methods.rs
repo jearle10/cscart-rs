@@ -198,7 +198,6 @@ macro_rules! impl_get_all_entity_method {
                     .build();
 
                 let response_value = handler.read().await?;
-                dbg!(&response_value);
                 let response: $return_type = serde_json::from_value(response_value)?;
                 Ok(response)
             }
