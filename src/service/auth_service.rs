@@ -28,6 +28,7 @@ impl AuthService {
             .build();
         let value = serde_json::to_value(data)?;
         let response_value = handler.create(value).await?;
+        dbg!(&response_value);
         let response: Auth = serde_json::from_value(response_value)?;
         Ok(response)
     }
