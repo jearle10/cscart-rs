@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.8.0](https://github.com/jearle10/cscart-rs/compare/v0.7.0...v0.8.0) - 2025-03-30
+
+### Added
+
+- Auth, Block, Order types API responses
+- Auth, Block, Order types API responses
+
+### Fixed
+
+- temperamental test
+- cicd
+- cicd
+
+### Other
+
+- remove debug
+- User service and make products fields all public
+- Vendor service types
+- Vendor service types
+- Product service types
+- Cart service types
+- Cart service types
+- All tests passing, categories typing done, auth link bug resolved
+
 ## [0.7.0](https://github.com/jearle10/cscart-rs/compare/v0.6.0...v0.7.0) - 2024-06-03
 
 ### Added
