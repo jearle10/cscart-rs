@@ -1,6 +1,6 @@
 //! # About
 //!
-//! Cscart-rs is an sdk for making api request using the cscart rest api
+//! Cscart-rs is an sdk for using the cscart rest api
 //!
 //! This library is a work in process and so not all entities are supported for the v1
 //! release
