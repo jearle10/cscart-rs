@@ -1,9 +1,5 @@
 name: CI
 
-permissions:
-    pull-requests: write
-    contents: write
-
 on:
     push:
         branches:
@@ -23,10 +19,14 @@ jobs:
         run: cargo test
 
   release-plz:
-    if: github.ref != !contains(github.ref, 'refs/tags/v')
     name: Create release PR
     needs: [test]
     runs-on: ubuntu-latest
+    permissions:
+      # Used to create and update pull requests.
+      pull-requests: write
+      # Used to push to the pull request branch.
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
